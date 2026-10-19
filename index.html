@@ -314,16 +314,16 @@
 </style>
 </head>
 <body>
-<a class="salta" href="#contingut" data-t="salta">Skip to content</a>
+<a class="salta" href="#content" data-t="salta">Skip to content</a>
 
 <header class="barra">
   <div class="amplada">
     <a class="marca" href="#" aria-label="VBS"><img src="img/icona.png" alt="" width="30" height="30">VBS</a>
     <nav class="menu" aria-label="VBS">
-      <a href="#funcions" data-t="nav_que"></a>
-      <a href="#baixa" data-t="nav_baixa"></a>
-      <a href="#guia" data-t="nav_guia"></a>
-      <a href="#ajuda" data-t="nav_ajuda"></a>
+      <a href="#features" data-t="nav_que"></a>
+      <a href="#download" data-t="nav_baixa"></a>
+      <a href="#guide" data-t="nav_guia"></a>
+      <a href="#help" data-t="nav_ajuda"></a>
     </nav>
     <div class="idioma">
       <label for="tria-idioma" class="amaga-text" data-t="idioma">Language</label>
@@ -337,18 +337,18 @@
   </div>
 </header>
 
-<main id="contingut">
+<main id="content">
   <div class="portada">
     <div class="amplada">
       <p class="avant">VBS · VolleyBall Scouting</p>
       <h1 data-t="hero_titol">Scout the match from the keyboard.</h1>
       <p class="sub" data-t="hero_sub">VBS is a volleyball scouting program that writes files compatible with Data Volley. Free, for Windows 10 and 11, in Catalan, Spanish, English and German.</p>
       <div class="accions">
-        <a class="boto baixa-boto" href="#baixa">
+        <a class="boto baixa-boto" href="#download">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0l-4-4m4 4l4-4M4 16h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span data-t="btn_baixa"></span>
         </a>
-        <a class="boto secundari" href="#installa" data-t="btn_com"></a>
+        <a class="boto secundari" href="#install" data-t="btn_com"></a>
       </div>
       <p class="meta"><span data-t="hero_meta"></span><span class="versio-text" hidden></span></p>
       <figure class="captura">
@@ -364,7 +364,7 @@
     </div>
   </noscript>
 
-  <section id="funcions">
+  <section id="features">
     <div class="amplada centrat">
       <h2 data-t="que_titol"></h2>
       <p class="sub" data-t="que_sub"></p>
@@ -416,18 +416,18 @@
     </div>
   </section>
 
-  <section id="baixa">
+  <section id="download">
     <div class="amplada">
       <div class="baixa">
         <img class="logo" src="img/icona.png" alt="" width="76" height="76">
         <h2 data-t="baixa_t"></h2>
         <p class="sub" style="margin-bottom:18px" data-t="baixa_d"></p>
-        <a class="boto baixa-boto" href="#baixa" id="boto-baixa">
+        <a class="boto baixa-boto" href="#download" id="boto-baixa">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0l-4-4m4 4l4-4M4 16h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="versio-boto" data-t="btn_baixa"></span>
         </a>
         <p class="req" data-t="baixa_req"></p>
-        <div class="novetats" id="novetats" hidden>
+        <div class="novetats" id="changelog" hidden>
           <h3 data-t="novetats"></h3>
           <p id="novetats-text"></p>
         </div>
@@ -435,7 +435,7 @@
         <div><span class="pendent" id="pendent" hidden>versio.json: &lt;usuari&gt; / &lt;repo&gt; (LLEGEIX-ME.md)</span></div>
       </div>
 
-      <div class="installa" id="installa">
+      <div class="installa" id="install">
         <div>
           <h2 data-t="inst_t"></h2>
           <ol class="passos">
@@ -451,7 +451,7 @@
             <h3 data-t="ss_t"></h3>
             <p data-t="ss_d"></p>
           </div>
-          <div class="nota" id="clau">
+          <div class="nota" id="key">
             <h3 data-t="clau_t"></h3>
             <p data-t="clau_d"></p>
           </div>
@@ -464,7 +464,7 @@
     </div>
   </section>
 
-  <section id="guia" class="blanca">
+  <section id="guide" class="blanca">
     <div class="amplada centrat">
       <h2 data-t="guia_t"></h2>
       <p class="sub" data-t="guia_d" id="guia-d"></p>
@@ -480,7 +480,7 @@
 
   <section>
     <div class="amplada dues">
-      <div id="privacitat">
+      <div id="privacy">
         <h2 data-t="priv_t"></h2>
         <p data-t="priv_d"></p>
         <ul class="punts">
@@ -490,7 +490,7 @@
           <li data-t="priv_4"></li>
         </ul>
       </div>
-      <div id="ajuda">
+      <div id="help">
         <h2 data-t="ajuda_t"></h2>
         <p class="primer" data-t="ajuda_0"></p>
         <p data-t="ajuda_d"></p>
@@ -511,7 +511,7 @@
     <p data-t="legal_2"></p>
     <p data-t="legal_3"></p>
     <p data-t="legal_4"></p>
-    <div class="impressum" id="impressum">
+    <div class="impressum" id="imprint">
       <h3 data-t="imp_t"></h3>
       <p data-t="imp_d"></p>
     </div>
@@ -1086,7 +1086,7 @@
     var totes = document.getElementById("totes");
 
     document.querySelectorAll(".baixa-boto").forEach(function (a) {
-      a.href = a === botoBaixa ? (url || "#baixa") : "#baixa";
+      a.href = a === botoBaixa ? (url || "#download") : "#download";
     });
     if (bo) {
       totes.href = instalador.replace(/\/releases\/download\/.*$/, "/releases");
@@ -1109,7 +1109,7 @@
       v ? text(idioma, "btn_baixa_v").replace("{v}", v) : text(idioma, "btn_baixa");
 
     var notes = versio && versio.notes ? (versio.notes[idioma] || versio.notes.en || "") : "";
-    document.getElementById("novetats").hidden = !notes;
+    document.getElementById("changelog").hidden = !notes;
     document.getElementById("novetats-text").textContent = notes;
   }
 
