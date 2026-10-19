@@ -1,0 +1,104 @@
+﻿VBS - VolleyBall Scouting
+License agreement
+
+© 2026 Gerard. All rights reserved.
+
+VBS is free. By installing and using it, you accept these terms.
+
+
+1. What you can do
+
+- Use VBS for free: yourself, your club or your coaches, in matches and
+  practices at any level. Without a key, to open and view matches, with no
+  time limit; to scout them, with a key from the author (section 3).
+- Install it on as many computers as you like (a key, however, works on
+  only one: section 3).
+- Pass the installer on to other people exactly as you received it, without
+  charging anything for it.
+
+
+2. What you cannot do
+
+- Sell it, rent it out or charge for it in any way, on its own or as part of
+  another product or service.
+- Modify, decompile or disassemble it, or try to extract its source code,
+  except where the law expressly allows it.
+- Distribute a modified version, or remove this license or the author's name.
+- Pass your key on to other people, or try to bypass or trick its check.
+
+
+3. The key
+
+To scout matches, VBS needs a key, which the author gives out. Without a key,
+VBS only opens matches to view them.
+
+- The key is personal and works on one computer only: the first one it is
+  activated on. To change computers, ask the author.
+- The key can be valid with no time limit or until a date, depending on how
+  the author gives it to you. After that date it stops working, offline too.
+- The author can deactivate or delete a key at any time. Once deactivated,
+  deleted or expired, VBS goes back to only opening and viewing matches:
+  your matches and the rest of your data are not touched.
+- To activate the key, and then whenever there is a connection (when VBS opens
+  and every six hours), VBS connects to the author's key server and sends only
+  this: the key, an identifier of the computer (a digest computed from the
+  Windows identifier, which is never sent) and the version of VBS. Nothing
+  from your matches, your teams or any other data of yours.
+- On the server, the key carries the name the author gave it, a note of
+  theirs and, if it has one, the date until which it is valid, along with
+  that identifier, the version and the dates of activation and of the last
+  check. The IP address is not stored, although, as with any internet
+  connection, the provider hosting the server (Cloudflare) sees it.
+- Without a connection, the key stays valid for up to 14 days after the
+  last check.
+
+
+4. Your data is yours
+
+The matches, teams, reports, videos and any other data you create with VBS
+are yours to do with as you wish. They are stored on your computer: the
+author receives none of them. The only things VBS sends to the author are
+what section 3 describes, for the key, and its version when it checks for a
+new one:
+
+- The installed VBS checks for a new version on opening and every six
+  hours, if there is a connection: it asks the author's server for a single
+  file (which version is the latest) and tells it only the version of VBS.
+  Nothing about the key, the computer or your data, and the server stores
+  none of it; as in section 3, Cloudflare sees the IP address.
+- A new version is only installed if you ask for it, and only if it carries
+  the author's signature and is exactly the one the author published:
+  otherwise VBS installs nothing. Before installing it, VBS backs up your
+  settings, teams and key, and your matches and the rest of your data are
+  not touched.
+
+
+5. No warranty
+
+VBS is provided as is, without any warranty: it may contain errors. To the
+extent permitted by law, the author is not liable for any damage or loss
+arising from its use, in particular for lost or damaged data or matches.
+Keep backup copies of your matches. Nor is the key server guaranteed to be
+always available: if it does not respond, VBS keeps scoring for up to 14
+days after the last check, and then only opens and views matches until it
+responds again.
+
+
+6. No connection with anyone else
+
+VBS is an independent program. It is not affiliated with or endorsed by Data
+Project; Data Volley is a trademark of Data Project. Nor is it connected with
+SAMS, the DVV (Deutscher Volleyball-Verband), the HVBV (Hamburger
+Volleyball-Verband) or the FCVB (Federació Catalana de Voleibol). The online
+match search uses public sources that are not official for this purpose:
+they may change or stop working at any time.
+
+Clips downloads the videos you point it to: make sure you have the right to
+use them. VBS includes Python (with OpenSSL, libffi, expat, zstd and
+mpdecimal), Tcl/Tk and a QR code generator based on the one by Project
+Nayuki (MIT): their license notices are in the program's _internal\avisos
+folder. The first time, Clips downloads ffmpeg, yt-dlp and Deno: each has
+its own license. All other names and trademarks belong to their owners.
+
+
+If you do not agree with these terms, do not install VBS.

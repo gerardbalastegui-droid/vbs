@@ -1,0 +1,107 @@
+﻿VBS - VolleyBall Scouting
+Llicència d'ús
+
+© 2026 Gerard. Tots els drets reservats.
+
+El VBS és gratuït. Si l'instal·les i el fas servir, acceptes aquestes
+condicions.
+
+
+1. El que pots fer
+
+- Fer servir el VBS gratis: tu, el teu club o els teus entrenadors i
+  entrenadores, en partits i entrenaments de qualsevol categoria. Sense
+  clau, per obrir i mirar partits, sense límit de temps; per anotar-ne, amb
+  una clau de l'autor (punt 3).
+- Instal·lar-lo a tots els ordinadors que vulguis (la clau, en canvi, val
+  per a un de sol: punt 3).
+- Passar l'instal·lador a altres persones tal com l'has rebut, sense cobrar
+  res per ell.
+
+
+2. El que no pots fer
+
+- Vendre'l, llogar-lo o cobrar per ell de cap manera, ni sol ni dins d'un
+  altre producte o servei.
+- Modificar-lo, descompilar-lo, desassemblar-lo o intentar treure'n el codi
+  font, llevat del que la llei permeti expressament.
+- Repartir-ne una versió modificada, o treure-li aquesta llicència o el nom
+  de l'autor.
+- Passar la teva clau a altres persones, o intentar saltar-te o enganyar la
+  seva comprovació.
+
+
+3. La clau
+
+Per anotar, el VBS necessita una clau, que dona l'autor. Sense clau, el VBS
+només obre partits per mirar-los.
+
+- La clau és personal i val per a un sol ordinador: el primer on s'activa.
+  Per canviar d'ordinador, demana-ho a l'autor.
+- La clau pot valer sense límit de temps o fins a una data, segons com te la
+  doni l'autor. Passada aquesta data deixa de valer, també sense connexió.
+- L'autor pot desactivar o esborrar una clau en qualsevol moment.
+  Desactivada, esborrada o caducada, el VBS torna a només obrir i mirar
+  partits: els partits i la resta de dades que tinguis no es toquen.
+- Per activar la clau, i després cada vegada que hi ha connexió (en obrir el
+  VBS i cada sis hores), el VBS es connecta al servidor de claus de l'autor i
+  hi envia només això: la clau, un identificador de l'ordinador (un resum
+  calculat a partir de l'identificador del Windows, que no s'envia mai) i la
+  versió del VBS. Res dels partits, dels equips ni de cap altra dada teva.
+- Al servidor, la clau porta el nom que li ha posat l'autor, una nota seva i,
+  si en té, la data fins a la qual val, amb aquest identificador, la versió i
+  les dates de l'activació i de l'última comprovació. L'adreça IP no s'hi
+  guarda, tot i que, com en qualsevol connexió a internet, la veu el
+  proveïdor que allotja el servidor (Cloudflare).
+- Sense connexió, la clau segueix valent fins a 14 dies des de l'última
+  comprovació.
+
+
+4. Les teves dades són teves
+
+Els partits, equips, informes, vídeos i la resta de dades que crees amb el VBS
+són teus, i en fas el que vulguis. Es guarden al teu ordinador: l'autor no en
+rep cap. L'únic que el VBS envia a l'autor és el que diu el punt 3, per a la
+clau, i la seva versió quan mira si n'hi ha una de nova:
+
+- El VBS instal·lat mira si hi ha una versió nova en obrir-se i cada sis
+  hores, si hi ha connexió: demana un sol fitxer al servidor de l'autor
+  (quina és l'última versió) i només li diu la versió del VBS. Res de la
+  clau, de l'ordinador ni de les teves dades, i el servidor no en guarda res;
+  l'adreça IP, com al punt 3, la veu Cloudflare.
+- Una versió nova només s'instal·la si tu ho demanes, i només si porta la
+  firma de l'autor i és exactament la que ell ha publicat: si no, el VBS no
+  instal·la res. Abans d'instal·lar-la, el VBS fa una còpia de la teva
+  configuració, els equips i la clau, i els partits i la resta de dades no
+  es toquen.
+
+
+5. Sense garantia
+
+El VBS s'ofereix tal com és, sense cap garantia: pot tenir errors. En la
+mesura que la llei ho permeti, l'autor no es fa responsable de cap dany ni
+pèrdua que vingui de fer-lo servir, i en particular de dades o partits perduts
+o malmesos. Guarda còpies dels teus partits. Tampoc no es garanteix que el
+servidor de claus funcioni sempre: si no respon, el VBS segueix anotant fins
+a 14 dies des de l'última comprovació, i després només obre i mira partits
+fins que torni a respondre.
+
+
+6. Sense relació amb ningú més
+
+El VBS és un programa independent. No té cap relació amb Data Project ni en
+té el suport; Data Volley és una marca de Data Project. Tampoc no té relació
+amb SAMS, la DVV (Deutscher Volleyball-Verband), l'HVBV (Hamburger
+Volleyball-Verband) ni la FCVB (Federació Catalana de Voleibol). La cerca de
+partits en línia fa servir fonts públiques que no són oficials per a aquest
+ús: poden canviar o deixar de funcionar en qualsevol moment.
+
+Clips baixa els vídeos que li indiques: assegura't que tens dret a fer-los
+servir. El VBS porta a dins Python (amb OpenSSL, libffi, expat, zstd i
+mpdecimal), Tcl/Tk i un generador de QR basat en el de Project Nayuki (MIT):
+els seus avisos de llicència són a la carpeta _internal\avisos del programa.
+Clips baixa el primer cop ffmpeg, yt-dlp i Deno: cadascun té la seva pròpia
+llicència. La resta de noms i marques són dels seus propietaris.
+
+
+Si no hi estàs d'acord, no instal·lis el VBS.

@@ -1,0 +1,117 @@
+﻿VBS - VolleyBall Scouting
+Lizenzvereinbarung
+
+© 2026 Gerard. Alle Rechte vorbehalten.
+
+VBS ist kostenlos. Mit der Installation und Nutzung akzeptierst du diese
+Bedingungen.
+
+
+1. Was du darfst
+
+- VBS kostenlos nutzen: du selbst, dein Verein oder deine Trainerinnen und
+  Trainer, in Spielen und Trainings jeder Spielklasse. Ohne Schlüssel zum
+  Öffnen und Ansehen von Spielen, ohne zeitliche Begrenzung; zum Scouten mit
+  einem Schlüssel vom Autor (Punkt 3).
+- Es auf beliebig vielen Computern installieren (ein Schlüssel gilt dagegen
+  nur für einen: Punkt 3).
+- Das Installationsprogramm unverändert an andere weitergeben, ohne Geld
+  dafür zu verlangen.
+
+
+2. Was du nicht darfst
+
+- Es verkaufen, vermieten oder auf irgendeine Weise Geld dafür verlangen,
+  weder allein noch als Teil eines anderen Produkts oder Dienstes.
+- Es verändern, dekompilieren, disassemblieren oder versuchen, seinen
+  Quellcode zu gewinnen, soweit das Gesetz dies nicht ausdrücklich erlaubt.
+- Eine veränderte Version weitergeben oder diese Lizenz oder den Namen des
+  Autors entfernen.
+- Deinen Schlüssel an andere weitergeben oder versuchen, seine Prüfung zu
+  umgehen oder zu täuschen.
+
+
+3. Der Schlüssel
+
+Zum Scouten braucht VBS einen Schlüssel, den der Autor vergibt. Ohne
+Schlüssel öffnet VBS Spiele nur zum Ansehen.
+
+- Der Schlüssel ist persönlich und gilt für einen einzigen Computer: den
+  ersten, auf dem er aktiviert wird. Für einen Computerwechsel wende dich an
+  den Autor.
+- Der Schlüssel kann unbefristet gelten oder bis zu einem Datum, je nachdem,
+  wie der Autor ihn vergibt. Danach gilt er nicht mehr, auch ohne
+  Verbindung.
+- Der Autor kann einen Schlüssel jederzeit deaktivieren oder löschen.
+  Ist er deaktiviert, gelöscht oder abgelaufen, öffnet VBS Spiele wieder
+  nur zum Ansehen: Deine Spiele und deine übrigen Daten bleiben unberührt.
+- Zum Aktivieren des Schlüssels und danach immer, wenn eine Verbindung besteht
+  (beim Öffnen von VBS und alle sechs Stunden), verbindet sich VBS mit dem
+  Schlüsselserver des Autors und sendet nur Folgendes: den Schlüssel, eine
+  Kennung des Computers (einen Hashwert, berechnet aus der Windows-Kennung,
+  die selbst nie gesendet wird) und die Version von VBS. Nichts aus deinen
+  Spielen, Mannschaften oder sonstigen Daten.
+- Auf dem Server trägt der Schlüssel den Namen, den der Autor ihm gegeben hat,
+  eine Notiz von ihm und, falls vorhanden, das Datum, bis zu dem er gilt,
+  zusammen mit dieser Kennung, der Version und dem Datum der Aktivierung und
+  der letzten Prüfung. Die IP-Adresse wird nicht gespeichert, auch wenn sie,
+  wie bei jeder Internetverbindung, der Anbieter sieht, der den Server
+  bereitstellt (Cloudflare).
+- Ohne Verbindung bleibt der Schlüssel bis zu 14 Tage nach der letzten
+  Prüfung gültig.
+
+
+4. Deine Daten gehören dir
+
+Die Spiele, Mannschaften, Berichte, Videos und alle anderen Daten, die du mit
+VBS erstellst, gehören dir, und du kannst damit machen, was du willst. Sie
+werden auf deinem Computer gespeichert: Der Autor erhält keine davon. Das
+Einzige, was VBS an den Autor sendet, ist das in Punkt 3 Beschriebene, für
+den Schlüssel, und seine Version, wenn es nach einer neuen sucht:
+
+- Das installierte VBS sucht beim Öffnen und alle sechs Stunden, wenn eine
+  Verbindung besteht, nach einer neuen Version: Es fragt beim Server des
+  Autors eine einzige Datei ab (welche Version die neueste ist) und teilt
+  ihm nur die Version von VBS mit. Nichts vom Schlüssel, vom Computer oder
+  von deinen Daten, und der Server speichert nichts davon; die IP-Adresse
+  sieht, wie in Punkt 3, Cloudflare.
+- Eine neue Version wird nur installiert, wenn du es willst, und nur, wenn
+  sie die Signatur des Autors trägt und genau die ist, die er veröffentlicht
+  hat: Sonst installiert VBS nichts. Vor der Installation sichert VBS deine
+  Einstellungen, Mannschaften und den Schlüssel, und deine Spiele und
+  übrigen Daten bleiben unberührt.
+
+
+5. Keine Gewährleistung
+
+VBS wird so bereitgestellt, wie es ist, ohne jede Gewährleistung: Es kann
+Fehler enthalten. Soweit gesetzlich zulässig, haftet der Autor nicht für
+Schäden oder Verluste durch die Nutzung, insbesondere nicht für verlorene
+oder beschädigte Daten oder Spiele. Mach Sicherungskopien deiner Spiele.
+Ebenso wenig wird garantiert, dass der Schlüsselserver immer erreichbar ist:
+Antwortet er nicht, scoutet VBS bis zu 14 Tage nach der letzten Prüfung
+weiter und öffnet Spiele danach nur noch zum Ansehen, bis er wieder
+antwortet.
+
+
+6. Keine Verbindung zu anderen
+
+VBS ist ein unabhängiges Programm. Es steht in keiner Verbindung zu Data
+Project und wird von Data Project nicht unterstützt; Data Volley ist eine
+Marke von Data Project. Ebenso wenig steht es in Verbindung mit SAMS, dem DVV
+(Deutscher Volleyball-Verband), dem HVBV (Hamburger Volleyball-Verband) oder
+der FCVB (Federació Catalana de Voleibol). Die Online-Spielsuche nutzt
+öffentliche Quellen, die dafür nicht offiziell sind: Sie können sich
+jederzeit ändern oder nicht mehr funktionieren.
+
+Clips lädt die Videos herunter, die du angibst: Stell sicher, dass du sie
+verwenden darfst. VBS enthält Python (mit OpenSSL, libffi, expat, zstd und
+mpdecimal), Tcl/Tk und einen QR-Code-Generator, der auf dem von Project Nayuki
+(MIT) beruht: Deren Lizenzhinweise liegen im Programmordner unter
+_internal\avisos. Clips lädt beim ersten Mal ffmpeg, yt-dlp und Deno herunter:
+Jedes hat seine eigene Lizenz. Alle anderen Namen und Marken gehören ihren
+Eigentümern.
+
+
+Wenn du mit diesen Bedingungen nicht einverstanden bist, installiere VBS
+nicht.
