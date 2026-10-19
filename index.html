@@ -1,0 +1,1175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>VBS · VolleyBall Scouting</title>
+<meta name="description" content="Free volleyball scouting software for Windows that writes Data Volley compatible files.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VBS · VolleyBall Scouting">
+<meta property="og:description" content="Free volleyball scouting software for Windows that writes Data Volley compatible files.">
+<meta property="og:image" content="https://gerardbalastegui-droid.github.io/vbs/img/icona.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="img/icona.png" type="image/png">
+<link rel="apple-touch-icon" href="img/icona-180.png">
+<!--
+  La pàgina del VBS per a GitHub Pages. Sense res de fora: ni CDN ni fonts.
+  Els textos són a l'objecte T (un per idioma); la versió i l'enllaç de
+  l'instal·lador, a versio.json. Com es publica: LLEGEIX-ME.md.
+-->
+<script>
+  // Una captura que encara no hi és (img/*.png) s'amaga, i la fila es queda
+  // només amb el text: la pàgina ha de quedar bé sense cap imatge.
+  // Des del 13/10/2026 les captures són per idioma (img/<idioma>/<nom>.png,
+  // les posa aplica()): si falta la d'un idioma, abans d'amagar-la es prova
+  // la de l'anglès, que és la de reserva.
+  function amaga(img) {
+    var nom = img.getAttribute("data-img");
+    var reserva = nom ? "img/en/" + nom : "";
+    if (reserva && img.getAttribute("src") !== reserva) {
+      img.src = reserva;
+      return;
+    }
+    var figura = img.closest("figure");
+    if (figura) figura.hidden = true;
+    var fila = img.closest(".fila");
+    if (fila) fila.classList.add("sense-img");
+  }
+</script>
+<style>
+  :root {
+    --fons: #f5f5f7;
+    --targeta: #ffffff;
+    --text: #1d1d1f;
+    --fluix: #6e6e73;
+    --separa: #e8e8ed;
+    --blau: #0071e3;
+    --blau-fosc: #0062c4;
+    --blau-fluix: #e8f1fc;
+    --taronja: #c2410c;
+    --verd: #248a3d;
+    --ambre: #b25000;
+    --ambre-fluix: #fdf5ec;
+    --radi: 18px;
+    --ombra: 0 1px 2px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.07);
+    --lletra: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --mono: Consolas, "SF Mono", Menlo, "Liberation Mono", monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    margin: 0;
+    background: var(--fons);
+    color: var(--text);
+    font-family: var(--lletra);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-wrap: break-word;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--blau); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 3px solid rgba(0,113,227,.45); outline-offset: 2px; border-radius: 6px; }
+  code {
+    font-family: var(--mono);
+    font-size: .92em;
+    background: rgba(0,0,0,.05);
+    padding: .08em .35em;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+  [hidden] { display: none !important; }
+  .amaga-text {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .salta { position: absolute; left: 16px; top: -60px; z-index: 20; background: var(--blau); color: #fff;
+           padding: 8px 14px; border-radius: 10px; }
+  .salta:focus { top: 10px; }
+  .amplada { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* --- la barra de dalt ---------------------------------------------- */
+  header.barra {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(245,245,247,.82);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    backdrop-filter: saturate(180%) blur(18px);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+  }
+  .barra .amplada { display: flex; align-items: center; gap: 20px; height: 56px; }
+  .marca { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 18px; }
+  .marca:hover { text-decoration: none; }
+  .marca img { width: 30px; height: 30px; border-radius: 7px; }
+  nav.menu { display: flex; gap: 22px; margin-left: auto; font-size: 14px; }
+  nav.menu a { color: var(--text); opacity: .8; }
+  nav.menu a:hover { opacity: 1; text-decoration: none; color: var(--blau); }
+  .idioma { position: relative; }
+  .idioma select {
+    appearance: none; -webkit-appearance: none;
+    font: inherit; font-size: 14px; color: var(--text);
+    background: var(--targeta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236e6e73' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 10px center;
+    border: 1px solid #d2d2d7; border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+  }
+
+  /* --- la portada ----------------------------------------------------- */
+  .portada { text-align: center; padding: 72px 0 40px; background: linear-gradient(#fff, var(--fons)); }
+  .avant { color: var(--blau); font-weight: 600; letter-spacing: .02em; margin: 0 0 10px; font-size: 15px; }
+  h1 {
+    font-size: clamp(2.3rem, 6.4vw, 4.2rem);
+    line-height: 1.06; letter-spacing: -.025em; font-weight: 700;
+    margin: 0 auto 18px; max-width: 14em;
+  }
+  .sub { font-size: clamp(1.05rem, 2.2vw, 1.3rem); color: var(--fluix); max-width: 38em; margin: 0 auto 30px; }
+  .accions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .boto {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 48px; padding: 12px 26px; border-radius: 999px;
+    font-size: 17px; font-weight: 600; text-decoration: none;
+    background: var(--blau); color: #fff; border: 1px solid var(--blau);
+    transition: background .15s;
+  }
+  .boto:hover { background: var(--blau-fosc); text-decoration: none; }
+  .boto svg { width: 18px; height: 18px; }
+  .boto.secundari { background: transparent; color: var(--blau); }
+  .boto.secundari:hover { background: var(--blau-fluix); }
+  .meta { margin: 18px 0 0; color: var(--fluix); font-size: 14px; }
+  .meta span + span::before { content: " · "; }
+  .captura {
+    margin: 48px auto 0; max-width: 1000px;
+    border-radius: 14px; overflow: hidden;
+    background: var(--targeta); box-shadow: var(--ombra);
+    border: 1px solid rgba(0,0,0,.06);
+  }
+
+  /* --- les seccions --------------------------------------------------- */
+  section { padding: 76px 0; }
+  section.blanca { background: var(--targeta); }
+  h2 {
+    font-size: clamp(1.8rem, 4.2vw, 2.7rem); line-height: 1.12;
+    letter-spacing: -.02em; font-weight: 700; margin: 0 0 12px;
+  }
+  h1, h2 { text-wrap: balance; }
+  .centrat { text-align: center; }
+  .centrat .sub { margin-bottom: 44px; }
+  h3 { font-size: 1.12rem; line-height: 1.3; margin: 0 0 6px; font-weight: 600; }
+
+  .graella { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .funcio {
+    background: var(--targeta); border-radius: var(--radi); padding: 24px 24px 22px;
+    border: 1px solid rgba(0,0,0,.05);
+  }
+  .funcio p { margin: 0; color: var(--fluix); font-size: 15.5px; }
+  .icona {
+    width: 40px; height: 40px; border-radius: 11px; margin-bottom: 14px;
+    display: grid; place-items: center; background: var(--blau-fluix); color: var(--blau);
+  }
+  .icona svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8;
+               stroke-linecap: round; stroke-linejoin: round; }
+
+  .fila {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    gap: 56px; align-items: center;
+  }
+  .fila + .fila { margin-top: 88px; }
+  .fila.inversa > figure { order: -1; }
+  .fila.sense-img { grid-template-columns: minmax(0, 1fr); max-width: 760px; margin-left: auto; margin-right: auto; }
+  .fila.sense-img + .fila.sense-img { margin-top: 64px; }
+  .fila p { color: var(--fluix); margin: 0; }
+  .fila .captura { margin: 0; }
+
+  .codi {
+    margin-top: 24px; background: var(--fons); border-radius: 14px; padding: 16px 18px;
+    border: 1px solid var(--separa);
+  }
+  .codi-cap { font-size: 13px; font-weight: 600; color: var(--fluix); margin-bottom: 8px;
+              text-transform: uppercase; letter-spacing: .04em; }
+  .codi-fila {
+    display: grid; grid-template-columns: 7.2em 1.4em minmax(0, 1fr);
+    align-items: baseline; padding: 7px 0; border-top: 1px solid var(--separa);
+  }
+  .codi-fila:first-of-type { border-top: 0; }
+  .codi-fila code { background: none; padding: 0; font-size: 16px; }
+  .codi-fila .entra { font-weight: 600; color: var(--text); }
+  .codi-fila .fletxa { color: var(--fluix); }
+  .codi-exp { grid-column: 3; font-size: 13.5px; color: var(--fluix); line-height: 1.35; }
+  .local { color: var(--blau); }
+  .visitant { color: var(--taronja); }
+
+  /* --- la descàrrega --------------------------------------------------- */
+  .baixa {
+    max-width: 680px; margin: 0 auto; text-align: center;
+    background: var(--targeta); border-radius: 24px; padding: 44px 32px 36px;
+    box-shadow: var(--ombra);
+  }
+  .baixa img.logo { width: 76px; height: 76px; margin: 0 auto 18px; border-radius: 18px; }
+  .baixa .boto { margin-top: 8px; }
+  .req { color: var(--fluix); font-size: 14px; margin: 14px 0 0; }
+  .novetats { text-align: left; margin: 26px 0 0; padding: 16px 18px; background: var(--fons); border-radius: 12px; }
+  .novetats h3 { font-size: 14px; color: var(--fluix); text-transform: uppercase; letter-spacing: .04em; }
+  .novetats p { margin: 0; font-size: 15.5px; white-space: pre-line; }
+  .totes { display: inline-block; margin-top: 18px; font-size: 15px; }
+  .pendent {
+    display: inline-block; margin-top: 16px; padding: 8px 12px; border-radius: 10px;
+    background: var(--ambre-fluix); color: var(--ambre); border: 1px dashed var(--ambre);
+    font-size: 14px; font-weight: 600;
+  }
+
+  .installa { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; margin-top: 64px; align-items: start; }
+  ol.passos { list-style: none; counter-reset: pas; margin: 18px 0 0; padding: 0; }
+  ol.passos li {
+    counter-increment: pas; position: relative; padding: 0 0 18px 48px; color: var(--text);
+  }
+  ol.passos li::before {
+    content: counter(pas); position: absolute; left: 0; top: -1px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--blau); color: #fff; font-weight: 600; font-size: 15px;
+    display: grid; place-items: center;
+  }
+  .nota {
+    background: var(--targeta); border-radius: var(--radi); padding: 20px 22px;
+    border: 1px solid var(--separa); font-size: 15.5px;
+  }
+  .nota + .nota { margin-top: 16px; }
+  .nota p { margin: 0; color: var(--fluix); }
+  .nota.avis { background: var(--ambre-fluix); border-color: #f3dcc3; }
+  .nota.avis h3 { color: var(--ambre); }
+  .nota.avis p { color: #5c3a14; }
+
+  /* --- la guia --------------------------------------------------------- */
+  .guies { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 0 0 22px; }
+  .guies a {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 48px;
+    padding: 10px 18px; border-radius: 14px; background: var(--fons);
+    border: 1px solid var(--separa); color: var(--text); font-weight: 600;
+  }
+  .guies a:hover { border-color: var(--blau); color: var(--blau); text-decoration: none; }
+  .guies .pdf {
+    font-size: 11px; font-weight: 700; letter-spacing: .05em; color: #fff;
+    background: var(--taronja); border-radius: 5px; padding: 2px 6px;
+  }
+  .dins { color: var(--fluix); max-width: 40em; margin: 0 auto; }
+
+  /* --- privacitat i ajuda --------------------------------------------- */
+  .dues { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+  .dues > div { background: var(--targeta); border-radius: 22px; padding: 32px 30px; border: 1px solid rgba(0,0,0,.05); }
+  .dues h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+  .dues p { color: var(--fluix); }
+  ul.punts { list-style: none; margin: 16px 0 0; padding: 0; }
+  ul.punts li { position: relative; padding: 0 0 12px 30px; font-size: 15.5px; }
+  ul.punts li::before {
+    content: ""; position: absolute; left: 2px; top: 5px; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--verd) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8'%3E%3Cpath d='M1 4l2.6 2.6L9 1.2' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat center;
+  }
+  .dues ol.passos li { font-size: 15.5px; padding-bottom: 14px; }
+  .primer { background: var(--blau-fluix); border-radius: 12px; padding: 12px 14px; font-size: 15.5px; color: var(--text) !important; }
+  .petita { font-size: 14px; }
+  .contacte-pendent {
+    background: var(--ambre-fluix); color: var(--ambre); border: 1px dashed var(--ambre);
+    border-radius: 6px; padding: 0 6px; font-weight: 600; font-family: var(--mono); white-space: nowrap;
+  }
+
+  /* --- el peu ---------------------------------------------------------- */
+  footer { padding: 48px 0 56px; border-top: 1px solid var(--separa); color: var(--fluix); font-size: 13.5px; }
+  footer h2 { font-size: 15px; letter-spacing: 0; color: var(--text); margin-bottom: 10px; }
+  footer p { margin: 0 0 10px; max-width: 62em; }
+  .peu-fons { display: flex; gap: 12px; align-items: flex-start; margin-top: 22px; }
+  .peu-fons img { width: 22px; height: 22px; border-radius: 5px; flex: none; }
+  /* L'Impressum (19/10/2026): un apartat propi dels avisos legals, amb el nom,
+     l'adreça i el correu de qui publica la pàgina (IMPRESSUM, al <script>). */
+  footer h3 { font-size: 14px; color: var(--text); margin: 0 0 4px; }
+  .impressum { margin-top: 22px; }
+  .impressum p { margin: 0; }
+
+  /* --- pantalles petites ---------------------------------------------- */
+  @media (max-width: 900px) {
+    .graella { grid-template-columns: repeat(2, 1fr); }
+    .fila, .fila.inversa { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .fila.inversa > figure { order: 0; }
+    .installa, .dues { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 720px) {
+    nav.menu { display: none; }
+    .idioma { margin-left: auto; }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .amplada { padding: 0 16px; }
+    .portada { padding: 48px 0 28px; }
+    section { padding: 56px 0; }
+    .graella { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .accions .boto { width: 100%; }
+    .baixa { padding: 32px 18px 26px; border-radius: 20px; }
+    .baixa .boto { width: 100%; }
+    .dues > div { padding: 26px 18px; }
+    .codi { padding: 12px 14px; }
+    .codi-fila { grid-template-columns: auto 1.4em minmax(0, 1fr); column-gap: 4px; }
+    .codi-fila code { font-size: 14.5px; }
+    .codi-exp { grid-column: 1 / -1; margin-top: 2px; }
+    .fila + .fila { margin-top: 64px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a class="salta" href="#contingut" data-t="salta">Skip to content</a>
+
+<header class="barra">
+  <div class="amplada">
+    <a class="marca" href="#" aria-label="VBS"><img src="img/icona.png" alt="" width="30" height="30">VBS</a>
+    <nav class="menu" aria-label="VBS">
+      <a href="#funcions" data-t="nav_que"></a>
+      <a href="#baixa" data-t="nav_baixa"></a>
+      <a href="#guia" data-t="nav_guia"></a>
+      <a href="#ajuda" data-t="nav_ajuda"></a>
+    </nav>
+    <div class="idioma">
+      <label for="tria-idioma" class="amaga-text" data-t="idioma">Language</label>
+      <select id="tria-idioma">
+        <option value="ca" lang="ca">Català</option>
+        <option value="es" lang="es">Castellano</option>
+        <option value="en" lang="en">English</option>
+        <option value="de" lang="de">Deutsch</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main id="contingut">
+  <div class="portada">
+    <div class="amplada">
+      <p class="avant">VBS · VolleyBall Scouting</p>
+      <h1 data-t="hero_titol">Scout the match from the keyboard.</h1>
+      <p class="sub" data-t="hero_sub">VBS is a volleyball scouting program that writes files compatible with Data Volley. Free, for Windows 10 and 11, in Catalan, Spanish, English and German.</p>
+      <div class="accions">
+        <a class="boto baixa-boto" href="#baixa">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0l-4-4m4 4l4-4M4 16h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-t="btn_baixa"></span>
+        </a>
+        <a class="boto secundari" href="#installa" data-t="btn_com"></a>
+      </div>
+      <p class="meta"><span data-t="hero_meta"></span><span class="versio-text" hidden></span></p>
+      <figure class="captura">
+        <img data-img="portada.png" data-alt="alt_portada" alt="" width="1480" height="985" onerror="amaga(this)">
+      </figure>
+    </div>
+  </div>
+
+  <noscript>
+    <div class="amplada" style="padding:24px 20px">
+      <p>VBS is a free volleyball scouting program for Windows that writes Data Volley compatible files.
+         This page needs JavaScript to show its texts and the download link.</p>
+    </div>
+  </noscript>
+
+  <section id="funcions">
+    <div class="amplada centrat">
+      <h2 data-t="que_titol"></h2>
+      <p class="sub" data-t="que_sub"></p>
+    </div>
+    <div class="amplada">
+      <div class="graella" id="funcions-graella"></div>
+    </div>
+  </section>
+
+  <section class="blanca">
+    <div class="amplada">
+      <div class="fila">
+        <div>
+          <h2 data-t="anotar_t"></h2>
+          <p data-t="anotar_d"></p>
+          <div class="codi">
+            <div class="codi-cap" data-t="codi_titol"></div>
+            <div class="codi-fila"><code class="entra">11s.7#</code><span class="fletxa" aria-hidden="true">→</span><code><span class="local">*11ST-</span> <span class="visitant">a07RT#</span></code><span class="codi-exp" data-t="c1"></span></div>
+            <div class="codi-fila"><code class="entra">26.30#</code><span class="fletxa" aria-hidden="true">→</span><code><span class="local">*26AH/</span> <span class="visitant">a30BH#</span></code><span class="codi-exp" data-t="c2"></span></div>
+            <div class="codi-fila"><code class="entra">15a45c#</code><span class="fletxa" aria-hidden="true">→</span><code><span class="local">*15AH45C#</span></code><span class="codi-exp" data-t="c3"></span></div>
+          </div>
+        </div>
+        <figure class="captura"><img data-img="anotar.png" data-alt="alt_anotar" alt="" width="1600" height="996" loading="lazy" onerror="amaga(this)"></figure>
+      </div>
+
+      <div class="fila inversa">
+        <div>
+          <h2 data-t="informe_t"></h2>
+          <p data-t="informe_d"></p>
+        </div>
+        <figure class="captura"><img data-img="informe.png" data-alt="alt_informe" alt="" width="1570" height="1045" loading="lazy" onerror="amaga(this)"></figure>
+      </div>
+
+      <div class="fila">
+        <div>
+          <h2 data-t="tauleta_t"></h2>
+          <p data-t="tauleta_d"></p>
+        </div>
+        <figure class="captura"><img data-img="tauleta.png" data-alt="alt_tauleta" alt="" width="1180" height="676" loading="lazy" onerror="amaga(this)"></figure>
+      </div>
+
+      <div class="fila inversa">
+        <div>
+          <h2 data-t="cerca_t"></h2>
+          <p data-t="cerca_d"></p>
+        </div>
+        <figure class="captura"><img data-img="cerca.png" data-alt="alt_cerca" alt="" width="1100" height="1005" loading="lazy" onerror="amaga(this)"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="baixa">
+    <div class="amplada">
+      <div class="baixa">
+        <img class="logo" src="img/icona.png" alt="" width="76" height="76">
+        <h2 data-t="baixa_t"></h2>
+        <p class="sub" style="margin-bottom:18px" data-t="baixa_d"></p>
+        <a class="boto baixa-boto" href="#baixa" id="boto-baixa">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0l-4-4m4 4l4-4M4 16h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="versio-boto" data-t="btn_baixa"></span>
+        </a>
+        <p class="req" data-t="baixa_req"></p>
+        <div class="novetats" id="novetats" hidden>
+          <h3 data-t="novetats"></h3>
+          <p id="novetats-text"></p>
+        </div>
+        <a class="totes" id="totes" href="#" hidden data-t="totes"></a>
+        <div><span class="pendent" id="pendent" hidden>versio.json: &lt;usuari&gt; / &lt;repo&gt; (LLEGEIX-ME.md)</span></div>
+      </div>
+
+      <div class="installa" id="installa">
+        <div>
+          <h2 data-t="inst_t"></h2>
+          <ol class="passos">
+            <li data-t="inst_1"></li>
+            <li data-t="inst_2"></li>
+            <li data-t="inst_3"></li>
+            <li data-t="inst_4"></li>
+            <li data-t="inst_5"></li>
+          </ol>
+        </div>
+        <div>
+          <div class="nota avis">
+            <h3 data-t="ss_t"></h3>
+            <p data-t="ss_d"></p>
+          </div>
+          <div class="nota" id="clau">
+            <h3 data-t="clau_t"></h3>
+            <p data-t="clau_d"></p>
+          </div>
+          <div class="nota">
+            <h3 data-t="dades_t"></h3>
+            <p data-t="dades_d"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="guia" class="blanca">
+    <div class="amplada centrat">
+      <h2 data-t="guia_t"></h2>
+      <p class="sub" data-t="guia_d" id="guia-d"></p>
+      <div class="guies" id="guies">
+        <a href="guia/VBS%20-%20Guia%20visual%20(ca).pdf" lang="ca" data-guia="ca"><span class="pdf">PDF</span>Català</a>
+        <a href="guia/VBS%20-%20Guia%20visual%20(es).pdf" lang="es" data-guia="es"><span class="pdf">PDF</span>Castellano</a>
+        <a href="guia/VBS%20-%20Guia%20visual%20(en).pdf" lang="en" data-guia="en"><span class="pdf">PDF</span>English</a>
+        <a href="guia/VBS%20-%20Guia%20visual%20(de).pdf" lang="de" data-guia="de"><span class="pdf">PDF</span>Deutsch</a>
+      </div>
+      <p class="dins" data-t="guia_dins"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="amplada dues">
+      <div id="privacitat">
+        <h2 data-t="priv_t"></h2>
+        <p data-t="priv_d"></p>
+        <ul class="punts">
+          <li data-t="priv_1"></li>
+          <li data-t="priv_2"></li>
+          <li data-t="priv_3"></li>
+          <li data-t="priv_4"></li>
+        </ul>
+      </div>
+      <div id="ajuda">
+        <h2 data-t="ajuda_t"></h2>
+        <p class="primer" data-t="ajuda_0"></p>
+        <p data-t="ajuda_d"></p>
+        <ol class="passos">
+          <li data-t="ajuda_1"></li>
+          <li data-t="ajuda_2"></li>
+        </ol>
+        <p class="petita" data-t="ajuda_nota"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="amplada">
+    <h2 data-t="legal_t"></h2>
+    <p data-t="legal_1"></p>
+    <p data-t="legal_2"></p>
+    <p data-t="legal_3"></p>
+    <p data-t="legal_4"></p>
+    <div class="impressum" id="impressum">
+      <h3 data-t="imp_t"></h3>
+      <p data-t="imp_d"></p>
+    </div>
+    <div class="peu-fons"><img src="img/icona.png" alt="" width="22" height="22"><span data-t="copy"></span></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // ------------------------------------------------------------------
+  // On s'informa dels errors. Buit: les Issues del repositori, que a GitHub
+  // Pages surten soles de l'adreça (https://<usuari>.github.io/<repo>/ →
+  // https://github.com/<usuari>/<repo>/issues). Fora de Pages (file://, el
+  // servidor de prova) no se sap quines són i la pàgina ensenya el forat en
+  // ambre. Si algun dia és un altre canal, posa'l aquí (un enllaç https://...)
+  // i canvia ajuda_2 i ajuda_nota dels quatre idiomes, que parlen d'Issues.
+  var CONTACTE = "";
+  // On es demana una clau per anotar (13/10/2026): un correu o un enllaç.
+  // Buit: el CONTACTE de dalt si n'hi ha; si no, el forat <contacte> en
+  // ambre, també a GitHub Pages: les Issues són públiques, i una clau no
+  // s'hi pot passar.
+  var CONTACTE_CLAU = "vbs@voleibolstats.com";
+  // L'Impressum (19/10/2026): qui publica la pàgina, amb les dades que el
+  // §5 DDG demana a una persona física: el nom i els cognoms, l'adreça
+  // postal (una línia per element: el carrer i el número, el codi postal i
+  // la ciutat, el país) i el correu. El que falti surt en ambre (<nom i
+  // cognoms>, <adreça postal>, <correu>), també a GitHub Pages: s'ha
+  // d'omplir abans de publicar-la (LLEGEIX-ME.md, el marcador 6).
+  var IMPRESSUM = {
+    nom: "Gerard Balastegui Mera",
+    adreca: ["Alter Postweg 7", "21075 Hamburg", "Germany"],
+    correu: "vbs@voleibolstats.com"
+  };
+  // ------------------------------------------------------------------
+
+  var IDIOMES = ["ca", "es", "en", "de"];
+
+  var ICONES = {
+    teclat: '<rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/>',
+    compost: '<rect x="2.5" y="7" width="7.5" height="10" rx="2"/><rect x="14" y="7" width="7.5" height="10" rx="2"/><path d="M12 15.5h.01"/>',
+    punt: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.2 9.5"/>',
+    zones: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>',
+    informe: '<path d="M3 21h18M6 17v-6M11 17V5M16 17v-9M21 17v-3"/>',
+    tauleta: '<rect x="4.5" y="2.5" width="15" height="19" rx="2.5"/><path d="M11 18h2"/>',
+    marcador: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M12 5v14M6 10.5l1.5-1.5v6M15.5 9.5h3v2.5h-3v3h3"/>',
+    clips: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.2l5 2.8-5 2.8z"/>',
+    recupera: '<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4v4.5H8"/>',
+    cerca: '<circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.5-4.5"/>',
+    recepcio: '<path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
+    fitxer: '<path d="M14 3H6.5A2.5 2.5 0 0 0 4 5.5v13A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V9z"/><path d="M14 3v6h6"/>'
+  };
+  var FUNCIONS = [["f1", "teclat"], ["f2", "compost"], ["f3", "punt"], ["f4", "zones"],
+                  ["f5", "informe"], ["f6", "tauleta"], ["f7", "marcador"], ["f8", "clips"],
+                  ["f9", "recupera"], ["f10", "cerca"], ["f11", "recepcio"], ["f12", "fitxer"]];
+
+  var T = {
+    ca: {
+      titol: "VBS · VolleyBall Scouting",
+      desc: "Anotador de voleibol gratuït per a Windows que escriu fitxers compatibles amb Data Volley.",
+      salta: "Vés al contingut",
+      idioma: "Idioma",
+      nav_que: "Què fa", nav_baixa: "Descàrrega", nav_guia: "Guia", nav_ajuda: "Ajuda",
+      hero_titol: "Anota el partit amb el teclat.",
+      hero_sub: "El VBS és un anotador de voleibol que escriu fitxers compatibles amb Data Volley. Gratis, per a Windows 10 i 11, en català, castellà, anglès i alemany.",
+      btn_baixa: "Baixa el VBS",
+      btn_baixa_v: "Baixa el VBS {v}",
+      btn_com: "Com s'instal·la",
+      hero_meta: "Gratis · Windows 10 i 11",
+      versio: "Versió {v}",
+      alt_portada: "La pantalla d'inici del VBS, amb els partits recents i les opcions",
+      que_titol: "Tot el que cal per anotar un partit",
+      que_sub: "Pensat per a qui anota amb Data Volley: el mateix codi, les mateixes marques i el mateix fitxer.",
+      f1t: "Amb el teclat, com a Data Volley",
+      f1d: "El codi de sempre, més curt: sense prefix és el local, sense gest és un atac i el tipus es posa sol. La jugada sencera en una línia, i el saque ja escrit després de cada punt.",
+      f2t: "El codi compost",
+      f2d: "Un punt entre dues accions les escriu totes dues, i la marca de la primera surt de la taula de Data Volley: <code>11s.7#</code> és <code>*11ST-</code> i <code>a07RT#</code>.",
+      f3t: "La tecla del punt",
+      f3d: "Tanca el rally com a Data Volley: escriu el codi que falti, el marcador, la rotació i el final de set. Si la jugada diu que el punt és de l'altre equip, avisa abans.",
+      f4t: "Zones, subzones i jugades",
+      f4d: "D'on ve i on va la pilota, amb subzones i el saque entre dos receptors. La pista s'encén mentre escrius, i les jugades d'atac de Data Volley ja hi són.",
+      f5t: "L'informe, amb les fórmules de DV",
+      f5d: "Segueix el format de l'Informe de Data Volley i es posa al dia a cada acció. En PDF amb un botó, i amb una pestanya d'anàlisi amb filtres i mapes.",
+      f6t: "La tauleta de l'entrenador",
+      f6d: "Les estadístiques que triï el primer entrenador, en directe en una tauleta o un mòbil de la mateixa xarxa. S'obre apuntant al codi QR, i s'encén amb el marcador del stream, a la configuració.",
+      f7t: "El marcador per al stream",
+      f7d: "Publica el marcador com el servidor de Data Volley i al mateix port. A Moblin és un widget de navegador: noms, punts, sets, qui treu i les rotacions. S'encén a la configuració («Publica el marcador per al stream»); el primer cop, el tallafoc de Windows demana permís.",
+      f8t: "Clips, per al vídeo",
+      f8d: "Cada tecla porta l'hora exacta. Amb el vídeo de YouTube o un fitxer, Clips en fa un mp4 amb els clips que triïs: jugadora, gest, marca, set o rotació.",
+      f9t: "No es perd res",
+      f9d: "Cada tecla va al disc abans de fer res més. Si el programa o l'ordinador es tanquen de cop, el partit torna sencer.",
+      f10t: "SAMS i la Federació Catalana",
+      f10d: "Cerca el partit en crear-lo, al ticker de SAMS Score o a l'agenda de la FCVB. De SAMS també surten plantilles, formacions i canvis. Experimental.",
+      f11t: "Només la recepció",
+      f11d: "Quan no es pot anotar el partit sencer: el dorsal i la marca de cada recepció del teu equip, i la taula amb Pos% i Exc%.",
+      f12t: "Fitxers de Data Volley",
+      f12d: "Un .vbsc és un .dvw per dins, i Data Volley el llegeix com un dels seus. El VBS també obre els .dvw i importa les plantilles .sq.",
+      anotar_t: "La pantalla d'anotar",
+      anotar_d: "Les plantilles als costats, la pista a escala al mig, la llista de codis a la dreta i la línia de codi a baix. Tot es fa amb el teclat, i tot es pot clicar. Mentre escrius, la pista encén d'on ve i on va la pilota.",
+      alt_anotar: "La pantalla d'anotar del VBS, amb la pista, les plantilles i la llista de codis",
+      codi_titol: "El que escrius i el que va al fitxer",
+      c1: "saque del 11 i recepció perfecta del 7 rival",
+      c2: "atac del 26 blocat pel 30 rival",
+      c3: "atac del 15 de la 4 a la 5C, punt",
+      informe_t: "L'informe, a cada acció",
+      informe_d: "Segueix el format de l'Informe de Data Volley, amb les seves fórmules: punts, saque, recepció, atac i bloqueig per jugadora, i al final side-out, break point i les rotacions. Es posa al dia mentre anotes, es desa en PDF amb un botó i té una pestanya d'anàlisi amb mapes a la pista.",
+      alt_informe: "L'informe del VBS, amb una fila per jugadora i els totals de cada set",
+      tauleta_t: "La tauleta de l'entrenador",
+      tauleta_d: "El primer entrenador segueix les estadístiques que vulgui des d'una tauleta o un mòbil: side-out i break point per rotació, recepció, atac i saque per jugadora, els últims rallies. Es posen al dia soles, per la xarxa local, i s'obren apuntant al codi QR. Va amb el marcador del stream: s'encén a la configuració («Publica el marcador per al stream»); el primer cop, el tallafoc de Windows demana permís.",
+      alt_tauleta: "La tauleta de l'entrenador, amb el marcador i les taules de recepció i atac",
+      cerca_t: "El partit, cercat en línia",
+      cerca_d: "Tria el dia i surten tots els partits: un clic omple els equips, la data, l'hora, la temporada i la competició. Alemanya amb el ticker de SAMS Score (DVV i HVBV) i Catalunya amb l'agenda de la Federació Catalana. És experimental: les fonts no són oficials i poden canviar.",
+      alt_cerca: "La finestra de cercar el partit en línia, amb els partits d'un dia",
+      baixa_t: "Descàrrega",
+      baixa_d: "L'instal·lador de l'última versió. La descàrrega és lliure, sense registre i sense publicitat, i obre qualsevol partit per mirar-lo. Per anotar cal una <b>clau</b> de l'autor.",
+      baixa_req: "Windows 10 i 11 (64 bits)",
+      novetats: "Novetats d'aquesta versió",
+      totes: "Totes les versions",
+      inst_t: "Com s'instal·la",
+      inst_1: "Baixa l'instal·lador amb el botó de dalt. Si Edge diu que aquest fitxer no es baixa habitualment: els tres punts (<b>…</b>) de l'avís → <b>Conserva</b> → <b>Mostra'n més</b> → <b>Mantén de tota manera</b>. En altres navegadors, tria conservar-lo.",
+      inst_2: "Obre'l. Windows mostrarà una finestra blava (SmartScreen): fes clic a <b>Més informació</b> i després a <b>Executa igualment</b>.",
+      inst_3: "L'instal·lador surt en l'idioma del Windows. De fàbrica, el VBS s'instal·la només per al teu usuari, sense demanar administrador (si tries instal·lar-lo per a tothom, sí que el demana). Pots posar-lo a l'escriptori i obrir els partits (.vbsc) amb doble clic.",
+      inst_4: "Al menú d'inici trobaràs el <b>VBS</b> i <b>Recuperar VBS</b>. El primer cop surt en l'idioma del Windows (es canvia a la configuració) i amb un partit d'exemple, inventat, per provar-ne l'informe sense anotar-ne cap.",
+      inst_5: "Per anotar, posa la clau que t'ha donat l'autor a <b>Activa el VBS</b>, a dalt a la dreta de la pantalla d'inici. Cal internet, i després connectar-se algun cop cada 14 dies.",
+      ss_t: "Per què avisa Windows?",
+      ss_d: "Perquè el VBS no està signat: signar un programa costa diners cada any, i el VBS és gratis. Windows no en coneix l'editor i avisa. Baixa'l només d'aquesta pàgina.",
+      clau_t: "La clau per anotar",
+      clau_d: "Sense clau, el VBS obre els partits i els deixa mirar: la pantalla, la llista de codis, l'informe i l'anàlisi. Per anotar cal una clau de l'autor (contacte: {contacte_clau}). Cada clau és personal i per a un sol ordinador, i pot valer sense límit o fins a una data, segons com la doni l'autor. Sense connexió val 14 dies des de l'última comprovació, i es renova sola quan n'hi ha.",
+      dades_t: "On van les teves dades",
+      dades_d: "Els partits, a <code>Documents\\VBS\\Partits</code>; la configuració, els equips i els diaris, a <code>%APPDATA%\\VBS</code>. Quan hi ha una versió nova, la pantalla d'inici ho diu (<b>VERSIÓ NOVA</b>) i <b>Actualitza</b> la baixa, la comprova i la instal·la a sobre: no es perd res. També es pot instal·lar a mà, a sobre. Desinstal·lar tampoc no s'emporta cap dada teva.",
+      guia_t: "La guia visual",
+      guia_d: "Un PDF per idioma amb la pista, la pantalla d'anotar, el codi i els fluxos dibuixats, per llegir-lo abans del primer partit.",
+      guia_dins: "La guia completa, amb les teves tecles i les teves jugades, és dins del programa: el botó <b>Guia</b> o la tecla <b>F1</b>.",
+      priv_t: "Privacitat",
+      priv_d: "Tot es queda al teu ordinador: els partits, els equips, els informes i els vídeos. El VBS no té comptes, ni publicitat, ni estadístiques d'ús, i no envia els teus partits a ningú.",
+      priv_1: "Només es connecta a internet per comprovar la <b>clau</b> i per mirar si hi ha una <b>versió nova</b> (els punts de sota), i quan fas servir <b>SAMS Score</b>, la <b>cerca del partit en línia</b> o <b>Clips</b> (les eines de vídeo, el primer cop, i els vídeos que triïs). <b>SAMS Score</b> ve engegat de fàbrica només amb el Windows en alemany (llegeix el ticker mentre anotes) i s'apaga a la configuració.",
+      priv_2: "El <b>marcador del stream</b> i la <b>tauleta</b> van per la xarxa local: el mòbil o la tauleta parlen amb el teu ordinador, no amb internet.",
+      priv_3: "Les <b>versions noves</b>: en obrir-se i cada sis hores si hi ha connexió (i amb <b>Mira si n'hi ha una de nova</b>, a <b>Quant al VBS</b>), el VBS instal·lat pregunta al servidor de l'autor si n'hi ha una de nova, i només li diu la seva versió: res de la clau ni de l'ordinador. Si n'hi ha una, ho diu a la pantalla d'inici, i només s'instal·la si cliques <b>Actualitza</b>: abans, el VBS en comprova la firma de l'autor, la mida i el contingut, i fa una còpia de la configuració, els equips i la clau.",
+      priv_4: "La <b>clau</b>: en activar-la, i després en obrir el VBS i cada sis hores si hi ha connexió, el VBS envia al servidor de claus de l'autor només la clau, un identificador de l'ordinador (un resum calculat a partir de l'identificador del Windows, que no s'envia mai) i la versió del VBS. Res dels partits. El servidor no guarda l'adreça IP (Cloudflare, que l'allotja, la veu, com en qualsevol connexió). Sense clau, el VBS no li envia ni la clau ni l'identificador de l'ordinador (només la versió, quan mira si n'hi ha una de nova: el punt de sobre).",
+      ajuda_t: "Si alguna cosa falla",
+      ajuda_0: "Si el VBS s'ha tancat de cop, primer de tot: <b>Recuperar VBS</b>, al menú d'inici, torna el partit tal com era, tecla a tecla.",
+      ajuda_d: "Els errors que el VBS no s'esperava queden apuntats a <code>errors.log</code>, i el VBS t'ho diu. Per arreglar-los, necessito aquest fitxer:",
+      ajuda_1: "Obre la carpeta dels errors: a la pantalla d'inici del VBS, un clic a la versió (a baix a l'esquerra) obre <b>Quant al VBS</b>, i allà, <b>Obre la carpeta dels errors</b>. Si el VBS no s'obre, escriu <code>%APPDATA%\\VBS</code> a la barra de l'Explorador de fitxers. Hi trobaràs <code>errors.log</code>.",
+      ajuda_2: "Obre una incidència a {contacte} amb dues línies del que feies quan ha fallat, i adjunta-hi <code>errors.log</code> (cal un compte de GitHub, gratuït).",
+      ajuda_nota: "Les incidències són públiques. <code>errors.log</code> pot portar camins amb el teu usuari del Windows i noms d'equips: mira-te'l abans. El diari de la sessió (a <code>diaris</code>, amb la data i l'hora al nom: <code>AAAAMMDD-HHMMSS</code>) també ajuda, però porta el partit sencer amb els noms de les jugadores: no el pengis. Si cal, ja te'l demanaré.",
+      legal_t: "Avisos legals",
+      legal_1: "El VBS és un programa independent: no té cap relació amb Data Project ni en té el suport. Data Volley és una marca de Data Project; el VBS només escriu fitxers compatibles amb el seu format.",
+      legal_2: "Ni el ticker de SAMS Score ni l'agenda de la Federació Catalana de Voleibol són serveis oficials per a altres programes, i el VBS no té relació amb SAMS, la DVV, l'HVBV ni la FCVB: poden canviar o deixar de funcionar sense avís.",
+      legal_3: "El VBS és gratis i s'ofereix tal com és, sense cap garantia. Les condicions són a la {llicencia}.",
+      legal_4: "Clips baixa els vídeos que li indiques: assegura't que tens dret a fer-los servir. El VBS porta Python (amb OpenSSL, libffi, expat, zstd i mpdecimal), Tcl/Tk i un generador de QR basat en el de Project Nayuki (MIT), i els seus avisos de llicència van dins del programa, a la carpeta <code>_internal\\avisos</code>. Clips baixa ffmpeg, yt-dlp i Deno, cadascun amb la seva llicència.",
+      imp_t: "Responsable de la pàgina",
+      imp_d: "{imp_nom}<br>{imp_adreca}<br>Correu electrònic: {imp_correu}",
+      llicencia: "llicència d'ús",
+      copy: "© 2026 Gerard. La resta de noms i marques són dels seus propietaris."
+    },
+
+    es: {
+      titol: "VBS · VolleyBall Scouting",
+      desc: "Anotador de voleibol gratuito para Windows que escribe archivos compatibles con Data Volley.",
+      salta: "Ir al contenido",
+      idioma: "Idioma",
+      nav_que: "Qué hace", nav_baixa: "Descarga", nav_guia: "Guía", nav_ajuda: "Ayuda",
+      hero_titol: "Anota el partido con el teclado.",
+      hero_sub: "El VBS es un anotador de voleibol que escribe archivos compatibles con Data Volley. Gratis, para Windows 10 y 11, en catalán, castellano, inglés y alemán.",
+      btn_baixa: "Descarga el VBS",
+      btn_baixa_v: "Descarga el VBS {v}",
+      btn_com: "Cómo se instala",
+      hero_meta: "Gratis · Windows 10 y 11",
+      versio: "Versión {v}",
+      alt_portada: "La pantalla de inicio del VBS, con los partidos recientes y las opciones",
+      que_titol: "Todo lo que hace falta para anotar un partido",
+      que_sub: "Pensado para quien anota con Data Volley: el mismo código, las mismas marcas y el mismo archivo.",
+      f1t: "Con el teclado, como en Data Volley",
+      f1d: "El código de siempre, más corto: sin prefijo es el local, sin gesto es un ataque y el tipo se pone solo. La jugada entera en una línea, y el saque ya escrito después de cada punto.",
+      f2t: "El código compuesto",
+      f2d: "Un punto entre dos acciones escribe las dos, y la marca de la primera sale de la tabla de Data Volley: <code>11s.7#</code> es <code>*11ST-</code> y <code>a07RT#</code>.",
+      f3t: "La tecla del punto",
+      f3d: "Cierra el rally como en Data Volley: escribe el código que falte, el marcador, la rotación y el final de set. Si la jugada dice que el punto es del otro equipo, avisa antes.",
+      f4t: "Zonas, subzonas y jugadas",
+      f4d: "De dónde viene y adónde va el balón, con subzonas y el saque entre dos receptores. La pista se enciende mientras escribes, y las jugadas de ataque de Data Volley ya están.",
+      f5t: "El informe, con las fórmulas de DV",
+      f5d: "Sigue el formato del Informe de Data Volley y se actualiza con cada acción. En PDF con un botón, y con una pestaña de análisis con filtros y mapas.",
+      f6t: "La tablet del entrenador",
+      f6d: "Las estadísticas que elija el primer entrenador, en directo en una tablet o un móvil de la misma red. Se abre apuntando al código QR, y se activa con el marcador del stream, en la configuración.",
+      f7t: "El marcador para el stream",
+      f7d: "Publica el marcador como el servidor de Data Volley y en el mismo puerto. En Moblin es un widget de navegador: nombres, puntos, sets, quién saca y las rotaciones. Se activa en la configuración («Publicar el marcador para el stream»); la primera vez, el cortafuegos de Windows pide permiso.",
+      f8t: "Clips, para el vídeo",
+      f8d: "Cada tecla lleva la hora exacta. Con el vídeo de YouTube o un archivo, Clips hace un mp4 con los clips que elijas: jugadora, gesto, marca, set o rotación.",
+      f9t: "No se pierde nada",
+      f9d: "Cada tecla va al disco antes de hacer nada más. Si el programa o el ordenador se cierran de golpe, el partido vuelve entero.",
+      f10t: "SAMS y la Federació Catalana",
+      f10d: "Busca el partido al crearlo, en el ticker de SAMS Score o en la agenda de la FCVB. De SAMS salen también plantillas, formaciones y cambios. Experimental.",
+      f11t: "Solo la recepción",
+      f11d: "Cuando no se puede anotar el partido entero: el dorsal y la marca de cada recepción de tu equipo, y la tabla con Pos% y Exc%.",
+      f12t: "Archivos de Data Volley",
+      f12d: "Un .vbsc es un .dvw por dentro, y Data Volley lo lee como uno de los suyos. El VBS también abre los .dvw e importa las plantillas .sq.",
+      anotar_t: "La pantalla de anotar",
+      anotar_d: "Las plantillas a los lados, la pista a escala en el centro, la lista de códigos a la derecha y la línea de código abajo. Todo se hace con el teclado, y todo se puede clicar. Mientras escribes, en la pista se ilumina de dónde viene y adónde va el balón.",
+      alt_anotar: "La pantalla de anotar del VBS, con la pista, las plantillas y la lista de códigos",
+      codi_titol: "Lo que escribes y lo que va al archivo",
+      c1: "saque del 11 y recepción perfecta del 7 rival",
+      c2: "ataque del 26 bloqueado por el 30 rival",
+      c3: "ataque del 15 de la 4 a la 5C, punto",
+      informe_t: "El informe, al momento",
+      informe_d: "Sigue el formato del Informe de Data Volley, con sus fórmulas: puntos, saque, recepción, ataque y bloqueo por jugadora, y al final side-out, break point y las rotaciones. Se actualiza mientras anotas, se guarda en PDF con un botón y tiene una pestaña de análisis con mapas en la pista.",
+      alt_informe: "El informe del VBS, con una fila por jugadora y los totales de cada set",
+      tauleta_t: "La tablet del entrenador",
+      tauleta_d: "El primer entrenador sigue las estadísticas que quiera desde una tablet o un móvil: side-out y break point por rotación, recepción, ataque y saque por jugadora, los últimos rallies. Se actualizan solas, por la red local, y se abren apuntando al código QR. Va con el marcador del stream: se activa en la configuración («Publicar el marcador para el stream»); la primera vez, el cortafuegos de Windows pide permiso.",
+      alt_tauleta: "La tablet del entrenador, con el marcador y las tablas de recepción y ataque",
+      cerca_t: "El partido, buscado en línea",
+      cerca_d: "Elige el día y salen todos los partidos: un clic rellena los equipos, la fecha, la hora, la temporada y la competición. Alemania con el ticker de SAMS Score (DVV y HVBV) y Cataluña con la agenda de la Federació Catalana. Es experimental: las fuentes no son oficiales y pueden cambiar.",
+      alt_cerca: "La ventana de buscar el partido en línea, con los partidos de un día",
+      baixa_t: "Descarga",
+      baixa_d: "El instalador de la última versión. La descarga es libre, sin registro y sin publicidad, y abre cualquier partido para verlo. Para anotar hace falta una <b>clave</b> del autor.",
+      baixa_req: "Windows 10 y 11 (64 bits)",
+      novetats: "Novedades de esta versión",
+      totes: "Todas las versiones",
+      inst_t: "Cómo se instala",
+      inst_1: "Descarga el instalador con el botón de arriba. Si Edge dice que este archivo no se descarga habitualmente: los tres puntos (<b>…</b>) del aviso → <b>Conservar</b> → <b>Mostrar más</b> → <b>Mantener de todos modos</b>. En otros navegadores, elige conservarlo.",
+      inst_2: "Ábrelo. Windows mostrará una ventana azul (SmartScreen): haz clic en <b>Más información</b> y después en <b>Ejecutar de todas formas</b>.",
+      inst_3: "El instalador sale en el idioma de Windows. De fábrica, el VBS se instala solo para tu usuario, sin pedir permisos de administrador (si eliges instalarlo para todos los usuarios, sí los pide). Puedes ponerlo en el escritorio y abrir los partidos (.vbsc) con doble clic.",
+      inst_4: "En el menú Inicio encontrarás el <b>VBS</b> y <b>Recuperar VBS</b>. La primera vez sale en el idioma de Windows (se cambia en la configuración) y con un partido de ejemplo, inventado, para probar su informe sin anotar ninguno.",
+      inst_5: "Para anotar, pon la clave que te ha dado el autor en <b>Activar el VBS</b>, arriba a la derecha de la pantalla de inicio. Hace falta internet, y después conectarse alguna vez cada 14 días.",
+      ss_t: "¿Por qué avisa Windows?",
+      ss_d: "Porque el VBS no está firmado: firmar un programa cuesta dinero cada año, y el VBS es gratis. Windows no conoce al editor y avisa. Descárgalo solo de esta página.",
+      clau_t: "La clave para anotar",
+      clau_d: "Sin clave, el VBS abre los partidos y deja verlos: la pantalla, la lista de códigos, el informe y el análisis. Para anotar hace falta una clave del autor (contacto: {contacte_clau}). Cada clave es personal y para un solo ordenador, y puede valer sin límite o hasta una fecha, según la dé el autor. Sin conexión vale 14 días desde la última comprobación, y se renueva sola cuando la hay.",
+      dades_t: "Dónde van tus datos",
+      dades_d: "Los partidos, en <code>Documentos\\VBS\\Partits</code>; la configuración, los equipos y los diarios, en <code>%APPDATA%\\VBS</code>. Cuando hay una versión nueva, la pantalla de inicio lo dice (<b>VERSIÓN NUEVA</b>) y <b>Actualizar</b> la descarga, la comprueba y la instala encima: no se pierde nada. También se puede instalar a mano, encima. Desinstalar tampoco se lleva ningún dato tuyo.",
+      guia_t: "La guía visual",
+      guia_d: "Un PDF por idioma con la pista, la pantalla de anotar, el código y los flujos dibujados, para leerlo antes del primer partido.",
+      guia_dins: "La guía completa, con tus teclas y tus jugadas, está dentro del programa: el botón <b>Guía</b> o la tecla <b>F1</b>.",
+      priv_t: "Privacidad",
+      priv_d: "Todo se queda en tu ordenador: los partidos, los equipos, los informes y los vídeos. El VBS no tiene cuentas, ni publicidad, ni estadísticas de uso, y no envía tus partidos a nadie.",
+      priv_1: "Solo se conecta a internet para comprobar la <b>clave</b> y para mirar si hay una <b>versión nueva</b> (los puntos de abajo), y cuando usas <b>SAMS Score</b>, la <b>búsqueda del partido en línea</b> o <b>Clips</b> (las herramientas de vídeo, la primera vez, y los vídeos que elijas). <b>SAMS Score</b> viene activado de fábrica solo con Windows en alemán (lee el ticker mientras anotas) y se desactiva en la configuración.",
+      priv_2: "El <b>marcador del stream</b> y la <b>tablet</b> van por la red local: el móvil o la tablet hablan con tu ordenador, no con internet.",
+      priv_3: "Las <b>versiones nuevas</b>: al abrirse y cada seis horas si hay conexión (y con <b>Buscar una versión nueva</b>, en <b>Acerca del VBS</b>), el VBS instalado pregunta al servidor del autor si hay una nueva, y solo le dice su versión: nada de la clave ni del ordenador. Si hay una, lo dice en la pantalla de inicio, y solo se instala si pulsas <b>Actualizar</b>: antes, el VBS comprueba la firma del autor, el tamaño y el contenido, y hace una copia de la configuración, los equipos y la clave.",
+      priv_4: "La <b>clave</b>: al activarla, y después al abrir el VBS y cada seis horas si hay conexión, el VBS envía al servidor de claves del autor solo la clave, un identificador del ordenador (un resumen calculado a partir del identificador de Windows, que no se envía nunca) y la versión del VBS. Nada de los partidos. El servidor no guarda la dirección IP (Cloudflare, que lo aloja, la ve, como en cualquier conexión). Sin clave, el VBS no le envía ni la clave ni el identificador del ordenador (solo su versión, al mirar si hay una nueva: el punto de arriba).",
+      ajuda_t: "Si algo falla",
+      ajuda_0: "Si el VBS se ha cerrado de golpe, lo primero: <b>Recuperar VBS</b>, en el menú Inicio, devuelve el partido tal como estaba, tecla a tecla.",
+      ajuda_d: "Los errores que el VBS no esperaba quedan apuntados en <code>errors.log</code>, y el VBS te lo dice. Para arreglarlos, necesito ese archivo:",
+      ajuda_1: "Abre la carpeta de los errores: en la pantalla de inicio del VBS, un clic en la versión (abajo a la izquierda) abre <b>Acerca del VBS</b>, y ahí, <b>Abrir la carpeta de los errores</b>. Si el VBS no se abre, escribe <code>%APPDATA%\\VBS</code> en la barra del Explorador de archivos. Ahí está <code>errors.log</code>.",
+      ajuda_2: "Abre una incidencia en {contacte} con dos líneas de lo que hacías cuando ha fallado, y adjunta <code>errors.log</code> (hace falta una cuenta de GitHub, gratuita).",
+      ajuda_nota: "Las incidencias son públicas. <code>errors.log</code> puede llevar rutas con tu usuario de Windows y nombres de equipos: míralo antes. El diario de la sesión (en <code>diaris</code>, con la fecha y la hora en el nombre: <code>AAAAMMDD-HHMMSS</code>) también ayuda, pero lleva el partido entero con los nombres de las jugadoras: no lo subas. Si hace falta, ya te lo pediré.",
+      legal_t: "Avisos legales",
+      legal_1: "El VBS es un programa independiente: no tiene ninguna relación con Data Project ni cuenta con su respaldo. Data Volley es una marca de Data Project; el VBS solo escribe archivos compatibles con su formato.",
+      legal_2: "Ni el ticker de SAMS Score ni la agenda de la Federació Catalana de Voleibol son servicios oficiales para otros programas, y el VBS no tiene relación con SAMS, la DVV, el HVBV ni la FCVB: pueden cambiar o dejar de funcionar sin aviso.",
+      legal_3: "El VBS es gratis y se ofrece tal cual, sin ninguna garantía. Las condiciones están en la {llicencia}.",
+      legal_4: "Clips descarga los vídeos que le indicas: asegúrate de que tienes derecho a usarlos. El VBS lleva Python (con OpenSSL, libffi, expat, zstd y mpdecimal), Tcl/Tk y un generador de QR basado en el de Project Nayuki (MIT), y sus avisos de licencia van dentro del programa, en la carpeta <code>_internal\\avisos</code>. Clips descarga ffmpeg, yt-dlp y Deno, cada uno con su licencia.",
+      imp_t: "Responsable de la página",
+      imp_d: "{imp_nom}<br>{imp_adreca}<br>Correo electrónico: {imp_correu}",
+      llicencia: "licencia de uso",
+      copy: "© 2026 Gerard. El resto de nombres y marcas son de sus propietarios."
+    },
+
+    en: {
+      titol: "VBS · VolleyBall Scouting",
+      desc: "Free volleyball scouting software for Windows that writes Data Volley compatible files.",
+      salta: "Skip to content",
+      idioma: "Language",
+      nav_que: "Features", nav_baixa: "Download", nav_guia: "Guide", nav_ajuda: "Help",
+      hero_titol: "Scout the match from the keyboard.",
+      hero_sub: "VBS is a volleyball scouting program that writes files compatible with Data Volley. Free, for Windows 10 and 11, in Catalan, Spanish, English and German.",
+      btn_baixa: "Download VBS",
+      btn_baixa_v: "Download VBS {v}",
+      btn_com: "How to install",
+      hero_meta: "Free · Windows 10 and 11",
+      versio: "Version {v}",
+      alt_portada: "The VBS start screen, with recent matches and options",
+      que_titol: "Everything you need to scout a match",
+      que_sub: "Made for people who scout with Data Volley: the same code, the same evaluations and the same file.",
+      f1t: "Keyboard first, like Data Volley",
+      f1d: "The usual code, only shorter: no prefix means the home team, no skill means an attack, and the type fills itself in. A whole rally on one line, and the serve already typed after every point.",
+      f2t: "Compound codes",
+      f2d: "A dot between two actions writes both, and the first one's evaluation comes from the Data Volley table: <code>11s.7#</code> becomes <code>*11ST-</code> and <code>a07RT#</code>.",
+      f3t: "The point key",
+      f3d: "Closes the rally like Data Volley: writes the missing code, the score, the rotation and the end of the set. If the rally says the point belongs to the other team, it warns you first.",
+      f4t: "Zones, subzones and combinations",
+      f4d: "Where the ball comes from and where it goes, with subzones and serves between two receivers. The court lights up as you type, and the Data Volley attack combinations are built in.",
+      f5t: "The report, with DV formulas",
+      f5d: "Follows the layout of the Data Volley report and updates on every action. To PDF with one click, plus an analysis tab with filters and court maps.",
+      f6t: "The coach's tablet",
+      f6d: "The stats the head coach chooses, live on a tablet or phone on the same network. Open it by scanning the QR code; it is switched on along with the stream scoreboard, in the settings.",
+      f7t: "Scoreboard for the stream",
+      f7d: "Publishes the score like the Data Volley server, on the same port. In Moblin it is a browser widget: names, points, sets, who serves and the rotations. Switch it on in the settings (“Publish the scoreboard for the stream”); the first time, Windows Firewall asks for permission.",
+      f8t: "Clips, for video",
+      f8d: "Every key press is timestamped. With the YouTube video or a file, Clips makes an mp4 with the clips you pick: player, skill, evaluation, set or rotation.",
+      f9t: "Nothing gets lost",
+      f9d: "Every key press goes to disk before anything else. If the program or the computer shuts down suddenly, the match comes back complete.",
+      f10t: "SAMS and the Catalan federation",
+      f10d: "Find the match when you create it, in the SAMS Score ticker or the FCVB schedule. SAMS also provides rosters, lineups and substitutions. Experimental.",
+      f11t: "Reception only",
+      f11d: "When the whole match cannot be scouted: the number and evaluation of each of your team's receptions, and a table with Pos% and Exc%.",
+      f12t: "Data Volley files",
+      f12d: "A .vbsc is a .dvw inside, and Data Volley reads it like one of its own. VBS also opens .dvw files and imports .sq rosters.",
+      anotar_t: "The scouting screen",
+      anotar_d: "Rosters on the sides, a court to scale in the middle, the code list on the right and the code line at the bottom. Everything works from the keyboard, and everything can be clicked. As you type, the court lights up where the ball comes from and where it goes.",
+      alt_anotar: "The VBS scouting screen, with the court, the rosters and the code list",
+      codi_titol: "What you type and what goes into the file",
+      c1: "serve by 11, perfect reception by the opponent's 7",
+      c2: "attack by 26 blocked by the opponent's 30",
+      c3: "attack by 15 from zone 4 to 5C, point",
+      informe_t: "The report, after every action",
+      informe_d: "Follows the Data Volley report layout and formulas: points, serve, reception, attack and block per player, then side-out, break point and rotations. It updates as you scout, saves to PDF with one click and has an analysis tab with court maps.",
+      alt_informe: "The VBS report, with one row per player and the totals of each set",
+      tauleta_t: "The coach's tablet",
+      tauleta_d: "The head coach follows the stats they want from a tablet or a phone: side-out and break point by rotation, reception, attack and serve per player, the last rallies. They update by themselves over the local network and open by scanning the QR code. It comes with the stream scoreboard: switch it on in the settings (“Publish the scoreboard for the stream”); the first time, Windows Firewall asks for permission.",
+      alt_tauleta: "The coach's tablet, with the score and the reception and attack tables",
+      cerca_t: "Find the match online",
+      cerca_d: "Pick the day and every match shows up: one click fills in the teams, date, time, season and competition. Germany through the SAMS Score ticker (DVV and HVBV) and Catalonia through the Catalan Volleyball Federation schedule. It is experimental: the sources are not official and may change.",
+      alt_cerca: "The online match search window, with the matches of one day",
+      baixa_t: "Download",
+      baixa_d: "The installer for the latest version. The download is free, with no sign-up and no ads, and it opens any match for viewing. Scouting needs a <b>key</b> from the author.",
+      baixa_req: "Windows 10 and 11 (64-bit)",
+      novetats: "What's new in this version",
+      totes: "All versions",
+      inst_t: "How to install",
+      inst_1: "Download the installer with the button above. If Edge says this file isn't commonly downloaded: the three dots (<b>…</b>) on the warning → <b>Keep</b> → <b>Show more</b> → <b>Keep anyway</b>. In other browsers, choose to keep it.",
+      inst_2: "Open it. Windows will show a blue window (SmartScreen): click <b>More info</b> and then <b>Run anyway</b>.",
+      inst_3: "The installer uses your Windows language. By default, VBS is installed for your user only, without administrator rights (if you choose to install it for all users, it asks for them). You can add it to the desktop and open matches (.vbsc) with a double click.",
+      inst_4: "In the Start menu you will find <b>VBS</b> and <b>Recover VBS</b>. The first time it starts in your Windows language (you can change it in the settings) and with an example match, made up, to try out its report without scouting one.",
+      inst_5: "To scout, enter the key the author gave you with <b>Activate VBS</b>, at the top right of the start screen. It needs internet, and after that a connection once every 14 days.",
+      ss_t: "Why does Windows warn you?",
+      ss_d: "Because VBS is not signed: signing a program costs money every year, and VBS is free. Windows does not know the publisher, so it warns you. Only download it from this page.",
+      clau_t: "The key for scouting",
+      clau_d: "Without a key, VBS opens matches and lets you view them: the screen, the code list, the report and the analysis. Scouting needs a key from the author (contact: {contacte_clau}). Each key is personal and for one computer only, and it can be valid with no time limit or until a date, as the author gives it. Offline it stays valid for 14 days after the last check, and it renews itself when there is a connection.",
+      dades_t: "Where your data goes",
+      dades_d: "Matches go to <code>Documents\\VBS\\Partits</code>; settings, teams and journals to <code>%APPDATA%\\VBS</code>. When there is a new version, the start screen says so (<b>NEW VERSION</b>) and <b>Update</b> downloads it, checks it and installs it on top: nothing is lost. It can also be installed by hand, on top. Uninstalling does not remove any of your data either.",
+      guia_t: "The visual guide",
+      guia_d: "One PDF per language with the court, the scouting screen, the code and the workflows drawn out, to read before your first match.",
+      guia_dins: "The full guide, with your keys and your combinations, is inside the program: the <b>Guide</b> button or the <b>F1</b> key.",
+      priv_t: "Privacy",
+      priv_d: "Everything stays on your computer: matches, teams, reports and videos. VBS has no accounts, no ads and no usage tracking, and it does not send your matches to anyone.",
+      priv_1: "It only connects to the internet to check the <b>key</b> and to look for a <b>new version</b> (see below), and when you use <b>SAMS Score</b>, the <b>online match search</b> or <b>Clips</b> (the video tools, the first time, and the videos you choose). <b>SAMS Score</b> is on by default only on German-language Windows (it reads the ticker while you scout) and can be switched off in the settings.",
+      priv_2: "The <b>stream scoreboard</b> and the <b>tablet</b> use the local network: the phone or tablet talks to your computer, not to the internet.",
+      priv_3: "<b>New versions</b>: on opening and every six hours if there is a connection (and with <b>Check for a new version</b>, in <b>About VBS</b>), the installed VBS asks the author's server whether there is a new one, telling it only its version: nothing about the key or the computer. If there is one, the start screen says so, and it is only installed if you click <b>Update</b>: first VBS checks the author's signature, the size and the content, and backs up the settings, the teams and the key.",
+      priv_4: "The <b>key</b>: when you activate it, and then when VBS opens and every six hours if there is a connection, VBS sends the author's key server only the key, an identifier of the computer (a digest computed from the Windows identifier, which is never sent) and the VBS version. Nothing from your matches. The server does not store the IP address (Cloudflare, which hosts it, sees it, as with any connection). Without a key, VBS sends it neither the key nor the computer identifier (only its version, when checking for a new one: the point above).",
+      ajuda_t: "If something goes wrong",
+      ajuda_0: "If VBS closed suddenly, first of all: <b>Recover VBS</b> in the Start menu brings the match back exactly as it was, key by key.",
+      ajuda_d: "Errors that VBS did not expect are written to <code>errors.log</code>, and VBS tells you. To fix them, I need that file:",
+      ajuda_1: "Open the error folder: on the VBS start screen, click the version (bottom left) to open <b>About VBS</b>, and there, <b>Open the error folder</b>. If VBS does not start, type <code>%APPDATA%\\VBS</code> in the File Explorer address bar. <code>errors.log</code> is there.",
+      ajuda_2: "Open an issue at {contacte} with a couple of lines about what you were doing when it failed, and attach <code>errors.log</code> (you need a free GitHub account).",
+      ajuda_nota: "Issues are public. <code>errors.log</code> may contain paths with your Windows user name and team names: check it first. The session journal (in <code>diaris</code>, with the date and time in its name: <code>YYYYMMDD-HHMMSS</code>) also helps, but it holds the whole match with the players' names: do not upload it. If it is needed, I will ask you for it.",
+      legal_t: "Legal",
+      legal_1: "VBS is an independent program: it has no relationship with Data Project and is not endorsed by it. Data Volley is a trademark of Data Project; VBS only writes files compatible with its format.",
+      legal_2: "Neither the SAMS Score ticker nor the Catalan Volleyball Federation schedule is an official service for other programs, and VBS has no relationship with SAMS, the DVV, the HVBV or the FCVB: they may change or stop working without notice.",
+      legal_3: "VBS is free and provided as is, without any warranty. The terms are in the {llicencia}.",
+      legal_4: "Clips downloads the videos you point it to: make sure you have the right to use them. VBS includes Python (with OpenSSL, libffi, expat, zstd and mpdecimal), Tcl/Tk and a QR code generator based on the one by Project Nayuki (MIT), and their license notices come with the program, in the <code>_internal\\avisos</code> folder. Clips downloads ffmpeg, yt-dlp and Deno, each under its own license.",
+      imp_t: "Imprint",
+      imp_d: "{imp_nom}<br>{imp_adreca}<br>Email: {imp_correu}",
+      llicencia: "license agreement",
+      copy: "© 2026 Gerard. All other names and trademarks belong to their owners."
+    },
+
+    de: {
+      titol: "VBS · VolleyBall Scouting",
+      desc: "Kostenloses Volleyball-Scouting-Programm für Windows, das mit Data Volley kompatible Dateien schreibt.",
+      salta: "Zum Inhalt springen",
+      idioma: "Sprache",
+      nav_que: "Funktionen", nav_baixa: "Download", nav_guia: "Anleitung", nav_ajuda: "Hilfe",
+      hero_titol: "Das Spiel per Tastatur scouten.",
+      hero_sub: "VBS ist ein Scouting-Programm für Volleyball, das mit Data Volley kompatible Dateien schreibt. Kostenlos, für Windows 10 und 11, auf Katalanisch, Spanisch, Englisch und Deutsch.",
+      btn_baixa: "VBS herunterladen",
+      btn_baixa_v: "VBS {v} herunterladen",
+      btn_com: "Installation",
+      hero_meta: "Kostenlos · Windows 10 und 11",
+      versio: "Version {v}",
+      alt_portada: "Der Startbildschirm von VBS mit den letzten Spielen und den Optionen",
+      que_titol: "Alles, was man zum Scouten eines Spiels braucht",
+      que_sub: "Gemacht für alle, die mit Data Volley scouten: derselbe Code, dieselben Bewertungen und dieselbe Datei.",
+      f1t: "Per Tastatur, wie in Data Volley",
+      f1d: "Der gewohnte Code, nur kürzer: ohne Präfix ist es das Heimteam, ohne Aktion ist es ein Angriff, und der Typ ergänzt sich selbst. Ein ganzer Ballwechsel in einer Zeile, und nach jedem Punkt steht der Aufschlag schon da.",
+      f2t: "Zusammengesetzter Code",
+      f2d: "Ein Punkt zwischen zwei Aktionen schreibt beide, und die Bewertung der ersten kommt aus der Data-Volley-Tabelle: <code>11s.7#</code> wird zu <code>*11ST-</code> und <code>a07RT#</code>.",
+      f3t: "Die Punkt-Taste",
+      f3d: "Schließt den Ballwechsel wie Data Volley ab: Sie schreibt den fehlenden Code, den Spielstand, die Rotation und das Satzende. Gehört der Punkt laut Ballwechsel dem anderen Team, warnt sie vorher.",
+      f4t: "Zonen, Subzonen und Kombinationen",
+      f4d: "Woher der Ball kommt und wohin er geht, mit Subzonen und Aufschlägen zwischen zwei Annehmenden. Das Feld leuchtet beim Tippen auf, und die Angriffskombinationen von Data Volley sind schon drin.",
+      f5t: "Der Bericht, mit den DV-Formeln",
+      f5d: "Folgt dem Format des Data-Volley-Berichts und aktualisiert sich bei jeder Aktion. Als PDF mit einem Klick, und mit einem Analyse-Reiter mit Filtern und Feldkarten.",
+      f6t: "Das Tablet für den Trainer",
+      f6d: "Die Statistiken, die der Cheftrainer auswählt, live auf einem Tablet oder Handy im selben Netz. Geöffnet wird es über den QR-Code; eingeschaltet wird es mit der Anzeigetafel für den Stream, in den Einstellungen.",
+      f7t: "Spielstand für den Stream",
+      f7d: "Veröffentlicht den Spielstand wie der Data-Volley-Server, auf demselben Port. In Moblin ist es ein Browser-Widget: Namen, Punkte, Sätze, Aufschlag und die Rotationen. Einschalten lässt er sich in den Einstellungen („Anzeigetafel für den Stream veröffentlichen“); beim ersten Mal fragt die Windows-Firewall nach der Erlaubnis.",
+      f8t: "Clips, für das Video",
+      f8d: "Jeder Tastendruck wird mit der genauen Uhrzeit gespeichert. Mit dem YouTube-Video oder einer Datei erstellt Clips ein MP4-Video mit den Clips, die du auswählst: Spielerin, Aktion, Bewertung, Satz oder Rotation.",
+      f9t: "Nichts geht verloren",
+      f9d: "Jeder Tastendruck landet zuerst auf der Festplatte. Wenn das Programm oder der Computer plötzlich abstürzt oder ausgeht, kommt das Spiel vollständig zurück.",
+      f10t: "SAMS und der katalanische Verband",
+      f10d: "Das Spiel beim Anlegen suchen, im SAMS-Score-Ticker oder im Spielplan der FCVB. Aus SAMS kommen auch Kader, Aufstellungen und Wechsel. Experimentell.",
+      f11t: "Nur die Annahme",
+      f11d: "Wenn sich nicht das ganze Spiel scouten lässt: Nummer und Bewertung jeder Annahme deines Teams, und die Tabelle mit Pos% und Exc%.",
+      f12t: "Data-Volley-Dateien",
+      f12d: "Eine .vbsc ist innen eine .dvw, und Data Volley liest sie wie eine eigene. VBS öffnet auch .dvw-Dateien und importiert .sq-Kader.",
+      anotar_t: "Der Scouting-Bildschirm",
+      anotar_d: "Die Kader an den Seiten, das maßstabsgetreue Feld in der Mitte, die Codeliste rechts und die Codezeile unten. Alles geht per Tastatur, und alles lässt sich anklicken. Beim Tippen leuchtet im Feld auf, woher der Ball kommt und wohin er geht.",
+      alt_anotar: "Der Scouting-Bildschirm von VBS mit dem Feld, den Kadern und der Codeliste",
+      codi_titol: "Was du tippst und was in die Datei kommt",
+      c1: "Aufschlag der 11, perfekte Annahme der gegnerischen 7",
+      c2: "Angriff der 26, geblockt von der gegnerischen 30",
+      c3: "Angriff der 15 von Zone 4 nach 5C, Punkt",
+      informe_t: "Der Bericht, nach jeder Aktion",
+      informe_d: "Folgt Format und Formeln des Data-Volley-Berichts: Punkte, Aufschlag, Annahme, Angriff und Block pro Spielerin, am Ende Side-out, Breakpoint und die Rotationen. Er aktualisiert sich beim Scouten, wird mit einem Klick als PDF gespeichert und hat einen Analyse-Reiter mit Feldkarten.",
+      alt_informe: "Der Bericht von VBS mit einer Zeile pro Spielerin und den Summen jedes Satzes",
+      tauleta_t: "Das Tablet für den Trainer",
+      tauleta_d: "Der Cheftrainer verfolgt die Statistiken, die er will, auf einem Tablet oder Handy: Side-out und Breakpoint pro Rotation, Annahme, Angriff und Aufschlag pro Spielerin, die letzten Ballwechsel. Sie aktualisieren sich selbst über das lokale Netz und öffnen sich über den QR-Code. Das Tablet läuft über die Anzeigetafel für den Stream: einschalten in den Einstellungen („Anzeigetafel für den Stream veröffentlichen“); beim ersten Mal fragt die Windows-Firewall nach der Erlaubnis.",
+      alt_tauleta: "Das Trainer-Tablet mit dem Spielstand und den Tabellen für Annahme und Angriff",
+      cerca_t: "Das Spiel online suchen",
+      cerca_d: "Tag wählen, und alle Spiele erscheinen: Ein Klick füllt Teams, Datum, Uhrzeit, Saison und Wettbewerb aus. Deutschland über den SAMS-Score-Ticker (DVV und HVBV), Katalonien über den Spielplan des katalanischen Verbands. Experimentell: Die Quellen sind nicht offiziell und können sich ändern.",
+      alt_cerca: "Das Fenster der Online-Spielsuche mit den Spielen eines Tages",
+      baixa_t: "Download",
+      baixa_d: "Das Installationsprogramm der neuesten Version. Der Download ist frei, ohne Anmeldung und ohne Werbung, und öffnet jedes Spiel zum Ansehen. Zum Scouten braucht es einen <b>Schlüssel</b> vom Autor.",
+      baixa_req: "Windows 10 und 11 (64 Bit)",
+      novetats: "Neu in dieser Version",
+      totes: "Alle Versionen",
+      inst_t: "Installation",
+      inst_1: "Lade das Installationsprogramm mit dem Button oben herunter. Meldet Edge, dass diese Datei nicht häufig heruntergeladen wird: die drei Punkte (<b>…</b>) der Warnung → <b>Beibehalten</b> → <b>Mehr anzeigen</b> → <b>Trotzdem beibehalten</b>. In anderen Browsern wähle Beibehalten.",
+      inst_2: "Öffne es. Windows zeigt ein blaues Fenster (SmartScreen): Klicke auf <b>Weitere Informationen</b> und dann auf <b>Trotzdem ausführen</b>.",
+      inst_3: "Das Installationsprogramm erscheint in der Sprache von Windows. Standardmäßig wird VBS nur für deinen Benutzer installiert, ohne Administratorrechte (wenn du es für alle Benutzer installierst, braucht es sie). Du kannst es auf den Desktop legen und Spiele (.vbsc) per Doppelklick öffnen.",
+      inst_4: "Im Startmenü findest du <b>VBS</b> und <b>VBS wiederherstellen</b>. Beim ersten Start erscheint es in der Sprache von Windows (umstellen lässt es sich in den Einstellungen) und mit einem erfundenen Beispielspiel, um seinen Bericht auszuprobieren, ohne selbst eins zu scouten.",
+      inst_5: "Zum Scouten gib den Schlüssel, den du vom Autor bekommen hast, mit <b>VBS aktivieren</b> oben rechts auf dem Startbildschirm ein. Dafür braucht es Internet, und danach alle 14 Tage einmal eine Verbindung.",
+      ss_t: "Warum warnt Windows?",
+      ss_d: "Weil VBS nicht signiert ist: Ein Programm zu signieren kostet jedes Jahr Geld, und VBS ist kostenlos. Windows kennt den Herausgeber nicht und warnt deshalb. Lade es nur von dieser Seite herunter.",
+      clau_t: "Der Schlüssel zum Scouten",
+      clau_d: "Ohne Schlüssel öffnet VBS Spiele und zeigt sie an: den Bildschirm, die Codeliste, den Bericht und die Analyse. Zum Scouten braucht es einen Schlüssel vom Autor (Kontakt: {contacte_clau}). Jeder Schlüssel ist persönlich und gilt für einen einzigen Computer, unbefristet oder bis zu einem Datum, je nachdem, wie der Autor ihn vergibt. Ohne Verbindung bleibt er 14 Tage nach der letzten Prüfung gültig und verlängert sich von selbst, sobald es eine gibt.",
+      dades_t: "Wo deine Daten landen",
+      dades_d: "Die Spiele in <code>Dokumente\\VBS\\Partits</code>; Einstellungen, Teams und Journale in <code>%APPDATA%\\VBS</code>. Gibt es eine neue Version, zeigt es der Startbildschirm (<b>NEUE VERSION</b>), und <b>Aktualisieren</b> lädt sie herunter, prüft sie und installiert sie darüber: Es geht nichts verloren. Man kann sie auch von Hand darüber installieren. Auch beim Deinstallieren bleiben alle deine Daten erhalten.",
+      guia_t: "Die visuelle Anleitung",
+      guia_d: "Ein PDF pro Sprache mit Feld, Scouting-Bildschirm, Code und Abläufen als Grafik, zum Lesen vor dem ersten Spiel.",
+      guia_dins: "Die vollständige Anleitung, mit deinen Tasten und Kombinationen, ist im Programm: der Button <b>Anleitung</b> oder die Taste <b>F1</b>.",
+      priv_t: "Datenschutz",
+      priv_d: "Alles bleibt auf deinem Computer: Spiele, Teams, Berichte und Videos. VBS hat keine Konten, keine Werbung und keine Nutzungsstatistiken, und es schickt deine Spiele an niemanden.",
+      priv_1: "Mit dem Internet verbindet es sich nur, um den <b>Schlüssel</b> zu prüfen und nach einer <b>neuen Version</b> zu sehen (siehe unten), und wenn du <b>SAMS Score</b>, die <b>Online-Spielsuche</b> oder <b>Clips</b> (die Videowerkzeuge beim ersten Mal und die Videos, die du auswählst) nutzt. <b>SAMS Score</b> ist ab Werk nur bei deutschsprachigem Windows eingeschaltet (es liest den Ticker, während du scoutest) und lässt sich in den Einstellungen ausschalten.",
+      priv_2: "Der <b>Spielstand für den Stream</b> und das <b>Tablet</b> laufen über das lokale Netz: Handy oder Tablet sprechen mit deinem Computer, nicht mit dem Internet.",
+      priv_3: "<b>Neue Versionen</b>: Beim Öffnen und alle sechs Stunden, wenn es eine Verbindung gibt (und mit <b>Nach neuer Version suchen</b> in <b>Über VBS</b>), fragt das installierte VBS beim Server des Autors nach, ob es eine neue gibt, und teilt ihm nur seine Version mit: nichts vom Schlüssel oder vom Computer. Gibt es eine, zeigt es der Startbildschirm, und installiert wird sie nur, wenn du <b>Aktualisieren</b> anklickst: Vorher prüft VBS die Signatur des Autors, die Größe und den Inhalt und sichert die Einstellungen, die Teams und den Schlüssel.",
+      priv_4: "Der <b>Schlüssel</b>: beim Aktivieren und danach beim Öffnen von VBS und alle sechs Stunden, wenn es eine Verbindung gibt, sendet VBS an den Schlüsselserver des Autors nur den Schlüssel, eine Kennung des Computers (einen Hashwert, berechnet aus der Windows-Kennung, die selbst nie gesendet wird) und die VBS-Version. Nichts aus deinen Spielen. Der Server speichert die IP-Adresse nicht (Cloudflare, das ihn bereitstellt, sieht sie, wie bei jeder Verbindung). Ohne Schlüssel sendet VBS ihm weder den Schlüssel noch die Kennung des Computers (nur seine Version, wenn es nach einer neuen sucht: der Punkt oben).",
+      ajuda_t: "Wenn etwas schiefgeht",
+      ajuda_0: "Wenn VBS plötzlich abgestürzt ist, zuerst: <b>VBS wiederherstellen</b> im Startmenü holt das Spiel genau so zurück, wie es war, Taste für Taste.",
+      ajuda_d: "Fehler, mit denen VBS nicht gerechnet hat, landen in <code>errors.log</code>, und VBS weist dich darauf hin. Um sie zu beheben, brauche ich diese Datei:",
+      ajuda_1: "Öffne den Fehlerordner: Auf dem Startbildschirm von VBS öffnet ein Klick auf die Version (unten links) <b>Über VBS</b>, und dort <b>Fehlerordner öffnen</b>. Startet VBS nicht, gib <code>%APPDATA%\\VBS</code> in die Adressleiste des Datei-Explorers ein. Dort liegt <code>errors.log</code>.",
+      ajuda_2: "Eröffne ein Issue unter {contacte} mit zwei Zeilen dazu, was du gerade gemacht hast, und hänge <code>errors.log</code> an (dafür brauchst du ein kostenloses GitHub-Konto).",
+      ajuda_nota: "Issues sind öffentlich. <code>errors.log</code> kann Pfade mit deinem Windows-Benutzernamen und Teamnamen enthalten: Sieh es dir vorher an. Das Journal der Sitzung (in <code>diaris</code>, mit Datum und Uhrzeit im Namen: <code>JJJJMMTT-HHMMSS</code>) hilft auch, enthält aber das ganze Spiel mit den Namen der Spielerinnen: Lade es nicht hoch. Wenn nötig, frage ich dich danach.",
+      legal_t: "Rechtliches",
+      legal_1: "VBS ist ein unabhängiges Programm: Es steht in keiner Verbindung zu Data Project und wird von Data Project nicht unterstützt. Data Volley ist eine Marke von Data Project; VBS schreibt nur Dateien, die mit ihrem Format kompatibel sind.",
+      legal_2: "Weder der SAMS-Score-Ticker noch der Spielplan der Federació Catalana de Voleibol sind offizielle Dienste für andere Programme, und VBS steht in keiner Verbindung zu SAMS, dem DVV, dem HVBV oder der FCVB: Sie können sich ohne Vorwarnung ändern oder nicht mehr funktionieren.",
+      legal_3: "VBS ist kostenlos und wird so bereitgestellt, wie es ist, ohne jede Gewährleistung. Die Bedingungen stehen in der {llicencia}.",
+      legal_4: "Clips lädt die Videos herunter, die du angibst: Stell sicher, dass du sie verwenden darfst. VBS enthält Python (mit OpenSSL, libffi, expat, zstd und mpdecimal), Tcl/Tk und einen QR-Code-Generator, der auf dem von Project Nayuki (MIT) beruht; deren Lizenzhinweise liegen im Programmordner unter <code>_internal\\avisos</code>. Clips lädt ffmpeg, yt-dlp und Deno herunter, jeweils mit eigener Lizenz.",
+      imp_t: "Impressum",
+      imp_d: "{imp_nom}<br>{imp_adreca}<br>E-Mail: {imp_correu}",
+      llicencia: "Lizenzvereinbarung",
+      copy: "© 2026 Gerard. Alle anderen Namen und Marken gehören ihren Eigentümern."
+    }
+  };
+
+  var idioma = "en";
+  var versio = null;          // el que diu versio.json, si s'ha pogut llegir
+
+  function escapa(text) {
+    return String(text).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function pendent(text) {
+    return !text || String(text).indexOf("<") >= 0 || String(text).indexOf(">") >= 0;
+  }
+
+  // El repositori de GitHub d'aquesta pàgina, si és a GitHub Pages
+  // (https://<usuari>.github.io/<repo>/); si no, null.
+  function repoGitHub() {
+    var m = /^([a-z0-9-]+)\.github\.io$/i.exec(location.hostname);
+    if (!m) return null;
+    var repo = location.pathname.split("/").filter(Boolean)[0];
+    if (!repo) return null;
+    return "https://github.com/" + m[1] + "/" + repo;
+  }
+
+  function contacteHtml() {
+    var repo = repoGitHub();
+    return enllacContacte(CONTACTE || (repo ? repo + "/issues" : "<contacte>"));
+  }
+
+  function contacteClauHtml() {
+    return enllacContacte(CONTACTE_CLAU || CONTACTE || "<contacte>");
+  }
+
+  function enllacContacte(on) {
+    if (pendent(on)) return '<span class="contacte-pendent">' + escapa(on) + "</span>";
+    if (/^https?:\/\//i.test(on)) {
+      return '<a href="' + escapa(on) + '" rel="noopener">' + escapa(on.replace(/^https?:\/\//i, "").replace(/\/$/, "")) + "</a>";
+    }
+    if (on.indexOf("@") > 0) return '<a href="mailto:' + escapa(on) + '">' + escapa(on) + "</a>";
+    return escapa(on);
+  }
+
+  // Les dades de l'Impressum (19/10/2026): la que falta, el forat en ambre.
+  function dadaImpressum(valor, forat) {
+    valor = String(valor || "").trim();
+    return pendent(valor) ? '<span class="contacte-pendent">' + escapa(forat) + "</span>" : escapa(valor);
+  }
+
+  function adrecaImpressum() {
+    // Una llista de línies o un text amb salts de línia: les dues valen.
+    var linies = [].concat(IMPRESSUM.adreca || []).join("\n").split("\n")
+      .map(function (l) { return l.trim(); }).filter(Boolean);
+    if (!linies.length) linies = [""];
+    return linies.map(function (l) { return dadaImpressum(l, "<adreça postal>"); }).join("<br>");
+  }
+
+  function llicenciaHtml(lang) {
+    return '<a href="llicencia/llicencia_' + lang + '.txt" hreflang="' + lang + '">' + T[lang].llicencia + "</a>";
+  }
+
+  function text(lang, clau) {
+    var t = T[lang][clau];
+    if (t === undefined) t = T.en[clau] || "";
+    return t.replace("{contacte}", contacteHtml()).replace("{contacte_clau}", contacteClauHtml())
+            .replace("{llicencia}", llicenciaHtml(lang))
+            // Amb una funció: un «$» de les dades no és cap patró de replace().
+            .replace("{imp_nom}", function () { return dadaImpressum(IMPRESSUM.nom, "<nom i cognoms>"); })
+            .replace("{imp_adreca}", function () { return adrecaImpressum(); })
+            .replace("{imp_correu}", function () {
+              return enllacContacte(String(IMPRESSUM.correu || "").trim() || "<correu>");
+            });
+  }
+
+  // --- quin idioma ----------------------------------------------------
+  function idiomaInicial() {
+    try {
+      var demanat = new URLSearchParams(location.search).get("lang");
+      if (demanat && IDIOMES.indexOf(demanat) >= 0) return demanat;
+    } catch (e) {}
+    try {
+      var desat = localStorage.getItem("vbs-idioma");
+      if (desat && IDIOMES.indexOf(desat) >= 0) return desat;
+    } catch (e) {}
+    var llista = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+    for (var i = 0; i < llista.length; i++) {
+      var codi = String(llista[i] || "").toLowerCase().split("-")[0];
+      if (IDIOMES.indexOf(codi) >= 0) return codi;
+    }
+    return "en";
+  }
+
+  // --- les funcions (les targetes) -------------------------------------
+  function pintaFuncions() {
+    var graella = document.getElementById("funcions-graella");
+    var html = "";
+    FUNCIONS.forEach(function (f) {
+      html += '<article class="funcio"><div class="icona" aria-hidden="true"><svg viewBox="0 0 24 24">' +
+              ICONES[f[1]] + '</svg></div><h3 data-t="' + f[0] + 't"></h3><p data-t="' + f[0] + 'd"></p></article>';
+    });
+    graella.innerHTML = html;
+  }
+
+  // --- la descàrrega ---------------------------------------------------
+  function urlReserva() {
+    // A GitHub Pages es pot deduir la pàgina de les Releases encara que
+    // versio.json no s'hagi pogut llegir.
+    var repo = repoGitHub();
+    return repo ? repo + "/releases/latest" : null;
+  }
+
+  function pintaBaixada() {
+    var botoBaixa = document.getElementById("boto-baixa");
+    var instalador = versio && versio.instalador;
+    var bo = instalador && !pendent(instalador) && /^https:\/\//i.test(instalador);
+    var url = bo ? instalador : urlReserva();
+    var totes = document.getElementById("totes");
+
+    document.querySelectorAll(".baixa-boto").forEach(function (a) {
+      a.href = a === botoBaixa ? (url || "#baixa") : "#baixa";
+    });
+    if (bo) {
+      totes.href = instalador.replace(/\/releases\/download\/.*$/, "/releases");
+      totes.hidden = totes.href === instalador;
+    } else if (url) {
+      totes.href = url.replace(/\/latest$/, "");
+      totes.hidden = false;
+    } else {
+      totes.hidden = true;
+    }
+    document.getElementById("pendent").hidden = !(versio && !bo);
+
+    var v = versio && versio.versio ? String(versio.versio) : "";
+    document.querySelectorAll(".versio-text").forEach(function (s) {
+      s.textContent = v ? text(idioma, "versio").replace("{v}", v) : "";
+      s.hidden = !v;
+    });
+    // El número dins de la frase, on li toca a cada idioma («VBS 1.11 herunterladen»).
+    document.querySelector(".versio-boto").textContent =
+      v ? text(idioma, "btn_baixa_v").replace("{v}", v) : text(idioma, "btn_baixa");
+
+    var notes = versio && versio.notes ? (versio.notes[idioma] || versio.notes.en || "") : "";
+    document.getElementById("novetats").hidden = !notes;
+    document.getElementById("novetats-text").textContent = notes;
+  }
+
+  // --- aplicar l'idioma -------------------------------------------------
+  function aplica(lang) {
+    idioma = lang;
+    document.documentElement.lang = lang;
+    document.title = T[lang].titol;
+    document.querySelector('meta[name="description"]').setAttribute("content", T[lang].desc);
+    document.querySelectorAll("[data-t]").forEach(function (el) {
+      el.innerHTML = text(lang, el.getAttribute("data-t"));
+    });
+    document.querySelectorAll("[data-alt]").forEach(function (el) {
+      el.alt = text(lang, el.getAttribute("data-alt"));
+    });
+    // Les captures, les d'aquest idioma (si en falta una, amaga() prova la
+    // de l'anglès). Una que s'havia amagat en un altre idioma torna a provar.
+    document.querySelectorAll("img[data-img]").forEach(function (img) {
+      var figura = img.closest("figure");
+      if (figura) figura.hidden = false;
+      var fila = img.closest(".fila");
+      if (fila) fila.classList.remove("sense-img");
+      img.src = "img/" + lang + "/" + img.getAttribute("data-img");
+    });
+    document.getElementById("tria-idioma").value = lang;
+    pintaBaixada();
+  }
+
+  // --- les guies que encara no hi són, fora (només servida per http) ---
+  // Si no n'hi ha cap, la secció es queda amb la guia de dins del programa.
+  function comprovaGuies() {
+    if (!/^https?:$/.test(location.protocol) || !window.fetch) return;
+    var guies = document.querySelectorAll("[data-guia]");
+    var falten = 0;
+    guies.forEach(function (a) {
+      fetch(a.getAttribute("href"), { method: "HEAD", cache: "no-cache" }).then(function (r) {
+        if (r.status !== 404) return;
+        a.hidden = true;
+        if (++falten === guies.length) {
+          document.getElementById("guies").hidden = true;
+          document.getElementById("guia-d").hidden = true;
+        }
+      }).catch(function () {});
+    });
+  }
+
+  pintaFuncions();
+  aplica(idiomaInicial());
+  document.getElementById("tria-idioma").addEventListener("change", function () {
+    var lang = this.value;
+    try { localStorage.setItem("vbs-idioma", lang); } catch (e) {}
+    aplica(lang);
+  });
+
+  if (window.fetch) {
+    fetch("versio.json", { cache: "no-cache" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { versio = d; pintaBaixada(); })
+      .catch(function () { pintaBaixada(); });
+  }
+  comprovaGuies();
+})();
+</script>
+</body>
+</html>
