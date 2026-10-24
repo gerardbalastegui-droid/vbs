@@ -459,6 +459,10 @@
             <h3 data-t="dades_t"></h3>
             <p data-t="dades_d"></p>
           </div>
+          <div class="nota" id="support">
+            <h3 data-t="kofi_t"></h3>
+            <p data-t="kofi_d"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -538,6 +542,11 @@
   // ambre, també a GitHub Pages: les Issues són públiques, i una clau no
   // s'hi pot passar.
   var CONTACTE_CLAU = "vbs@voleibolstats.com";
+  // El cafè (24/10/2026): l'enllaç de Ko-fi, a la nota «Si el VBS t'ajuda»
+  // (#support, al costat de com s'instal·la) i al Quant al VBS del programa
+  // (dades.KOFI). Buit, la nota no surt. Res de publicitat: un enllaç i prou,
+  // que la pàgina no carrega res de fora.
+  var KOFI = "https://ko-fi.com/gerardbalastegui";
   // L'Impressum (19/10/2026): qui publica la pàgina, amb les dades que el
   // §5 DDG demana a una persona física: el nom i els cognoms, l'adreça
   // postal (una línia per element: el carrer i el número, el codi postal i
@@ -552,6 +561,8 @@
   // ------------------------------------------------------------------
 
   var IDIOMES = ["ca", "es", "en", "de"];
+  // Sense enllaç de Ko-fi, la nota del cafè no surt.
+  document.getElementById("support").hidden = !KOFI;
 
   var ICONES = {
     teclat: '<rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/>',
@@ -645,6 +656,8 @@
       clau_d: "Sense clau, el VBS obre els partits i els deixa mirar: la pantalla, la llista de codis, l'informe i l'anàlisi. Per anotar cal una clau de l'autor (contacte: {contacte_clau}). Cada clau és personal i per a un sol ordinador, i pot valer sense límit o fins a una data, segons com la doni l'autor. Sense connexió val 14 dies des de l'última comprovació, i es renova sola quan n'hi ha.",
       dades_t: "On van les teves dades",
       dades_d: "Els partits, a <code>Documents\\VBS\\Partits</code>; la configuració, els equips i els diaris, a <code>%APPDATA%\\VBS</code>. Quan hi ha una versió nova, la pantalla d'inici ho diu (<b>VERSIÓ NOVA</b>) i <b>Actualitza</b> la baixa, la comprova i la instal·la a sobre: no es perd res. També es pot instal·lar a mà, a sobre. Desinstal·lar tampoc no s'emporta cap dada teva.",
+      kofi_t: "Si el VBS t'ajuda",
+      kofi_d: "El VBS és gratis i ho seguirà sent. Si et serveix, pots convidar-me a un cafè a {kofi}. El programa és el mateix per a tothom, amb cafè o sense.",
       guia_t: "La guia visual",
       guia_d: "Un PDF per idioma amb la pista, la pantalla d'anotar, el codi i els fluxos dibuixats, per llegir-lo abans del primer partit.",
       guia_dins: "La guia completa, amb les teves tecles i les teves jugades, és dins del programa: el botó <b>Guia</b> o la tecla <b>F1</b>.",
@@ -744,6 +757,8 @@
       clau_d: "Sin clave, el VBS abre los partidos y deja verlos: la pantalla, la lista de códigos, el informe y el análisis. Para anotar hace falta una clave del autor (contacto: {contacte_clau}). Cada clave es personal y para un solo ordenador, y puede valer sin límite o hasta una fecha, según la dé el autor. Sin conexión vale 14 días desde la última comprobación, y se renueva sola cuando la hay.",
       dades_t: "Dónde van tus datos",
       dades_d: "Los partidos, en <code>Documentos\\VBS\\Partits</code>; la configuración, los equipos y los diarios, en <code>%APPDATA%\\VBS</code>. Cuando hay una versión nueva, la pantalla de inicio lo dice (<b>VERSIÓN NUEVA</b>) y <b>Actualizar</b> la descarga, la comprueba y la instala encima: no se pierde nada. También se puede instalar a mano, encima. Desinstalar tampoco se lleva ningún dato tuyo.",
+      kofi_t: "Si el VBS te sirve",
+      kofi_d: "El VBS es gratis y lo seguirá siendo. Si te sirve, puedes invitarme a un café en {kofi}. El programa es el mismo para todos, con café o sin él.",
       guia_t: "La guía visual",
       guia_d: "Un PDF por idioma con la pista, la pantalla de anotar, el código y los flujos dibujados, para leerlo antes del primer partido.",
       guia_dins: "La guía completa, con tus teclas y tus jugadas, está dentro del programa: el botón <b>Guía</b> o la tecla <b>F1</b>.",
@@ -843,6 +858,8 @@
       clau_d: "Without a key, VBS opens matches and lets you view them: the screen, the code list, the report and the analysis. Scouting needs a key from the author (contact: {contacte_clau}). Each key is personal and for one computer only, and it can be valid with no time limit or until a date, as the author gives it. Offline it stays valid for 14 days after the last check, and it renews itself when there is a connection.",
       dades_t: "Where your data goes",
       dades_d: "Matches go to <code>Documents\\VBS\\Partits</code>; settings, teams and journals to <code>%APPDATA%\\VBS</code>. When there is a new version, the start screen says so (<b>NEW VERSION</b>) and <b>Update</b> downloads it, checks it and installs it on top: nothing is lost. It can also be installed by hand, on top. Uninstalling does not remove any of your data either.",
+      kofi_t: "If VBS helps you",
+      kofi_d: "VBS is free and will stay free. If it is useful to you, you can buy me a coffee at {kofi}. The program is the same for everyone, coffee or not.",
       guia_t: "The visual guide",
       guia_d: "One PDF per language with the court, the scouting screen, the code and the workflows drawn out, to read before your first match.",
       guia_dins: "The full guide, with your keys and your combinations, is inside the program: the <b>Guide</b> button or the <b>F1</b> key.",
@@ -942,6 +959,8 @@
       clau_d: "Ohne Schlüssel öffnet VBS Spiele und zeigt sie an: den Bildschirm, die Codeliste, den Bericht und die Analyse. Zum Scouten braucht es einen Schlüssel vom Autor (Kontakt: {contacte_clau}). Jeder Schlüssel ist persönlich und gilt für einen einzigen Computer, unbefristet oder bis zu einem Datum, je nachdem, wie der Autor ihn vergibt. Ohne Verbindung bleibt er 14 Tage nach der letzten Prüfung gültig und verlängert sich von selbst, sobald es eine gibt.",
       dades_t: "Wo deine Daten landen",
       dades_d: "Die Spiele in <code>Dokumente\\VBS\\Partits</code>; Einstellungen, Teams und Journale in <code>%APPDATA%\\VBS</code>. Gibt es eine neue Version, zeigt es der Startbildschirm (<b>NEUE VERSION</b>), und <b>Aktualisieren</b> lädt sie herunter, prüft sie und installiert sie darüber: Es geht nichts verloren. Man kann sie auch von Hand darüber installieren. Auch beim Deinstallieren bleiben alle deine Daten erhalten.",
+      kofi_t: "Wenn dir VBS hilft",
+      kofi_d: "VBS ist kostenlos und bleibt es auch. Wenn es dir nützt, kannst du mir auf {kofi} einen Kaffee spendieren. Das Programm ist für alle dasselbe, mit oder ohne Kaffee.",
       guia_t: "Die visuelle Anleitung",
       guia_d: "Ein PDF pro Sprache mit Feld, Scouting-Bildschirm, Code und Abläufen als Grafik, zum Lesen vor dem ersten Spiel.",
       guia_dins: "Die vollständige Anleitung, mit deinen Tasten und Kombinationen, ist im Programm: der Button <b>Anleitung</b> oder die Taste <b>F1</b>.",
@@ -1033,6 +1052,7 @@
     if (t === undefined) t = T.en[clau] || "";
     return t.replace("{contacte}", contacteHtml()).replace("{contacte_clau}", contacteClauHtml())
             .replace("{llicencia}", llicenciaHtml(lang))
+            .replace("{kofi}", function () { return enllacContacte(KOFI || "<ko-fi>"); })
             // Amb una funció: un «$» de les dades no és cap patró de replace().
             .replace("{imp_nom}", function () { return dadaImpressum(IMPRESSUM.nom, "<nom i cognoms>"); })
             .replace("{imp_adreca}", function () { return adrecaImpressum(); })
