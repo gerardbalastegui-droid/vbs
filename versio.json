@@ -1,10 +1,10 @@
 {
-  "versio": "1.19",
-  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.19/VBS-1.19-instalador.exe",
+  "versio": "1.20",
+  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.20/VBS-1.20-instalador.exe",
   "notes": {
-    "ca": "• Si activar la clau no arriba al servidor, el motiu queda apuntat a la carpeta dels errors (Quant al VBS, «Obre la carpeta dels errors»): és el que cal passar a l'autor per saber què passa.\n• Si no s'hi arriba perquè la data o l'hora de l'ordinador no són bones, ara ho diu així, en lloc de «No s'ha pogut connectar».\n• Quant al VBS té una línia per convidar l'autor a un cafè, si el VBS et serveix.",
-    "es": "• Si al activar la clave no se llega al servidor, el motivo queda apuntado en la carpeta de los errores (Acerca del VBS, «Abrir la carpeta de los errores»): es lo que hay que pasar al autor.\n• Si no se llega porque la fecha o la hora del ordenador no son correctas, ahora lo dice así, en lugar de «No se ha podido conectar».\n• Acerca del VBS tiene una línea para invitar al autor a un café, si el VBS te sirve.",
-    "en": "• If activating the key cannot reach the server, the reason is written to the error folder (About VBS, “Open the error folder”): that is what to send the author to find out what is going on.\n• If it cannot get through because the computer's date or time is wrong, it now says so, instead of “Could not connect”.\n• About VBS has a line to buy the author a coffee, if VBS helps you.",
-    "de": "• Erreicht das Aktivieren des Schlüssels den Server nicht, steht der Grund im Fehlerordner (Über VBS, „Fehlerordner öffnen“): Das schickt man dem Autor, damit er sieht, was los ist.\n• Liegt es an falschem Datum oder falscher Uhrzeit des Computers, sagt VBS das jetzt so statt „Keine Verbindung“.\n• Über VBS hat eine Zeile, um dem Autor einen Kaffee auszugeben, wenn VBS dir hilft."
+    "ca": "• En alguns ordinadors, activar la clau o mirar si hi ha una versió nova deia «No s'ha pogut connectar» encara que hi hagués internet. Ara hi arriba.",
+    "es": "• En algunos ordenadores, activar la clave o buscar una versión nueva decía «No se ha podido conectar» aunque hubiera internet. Ahora llega.",
+    "en": "• On some computers, activating the key or checking for a new version said “Could not connect” even with internet. Now it gets through.",
+    "de": "• Auf manchen Computern meldete das Aktivieren des Schlüssels oder die Suche nach einer neuen Version „Keine Verbindung“, obwohl Internet da war. Jetzt klappt es."
   }
 }
