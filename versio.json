@@ -1,10 +1,10 @@
 {
-  "versio": "1.20.1",
-  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.20.1/VBS-1.20.1-instalador.exe",
+  "versio": "1.20.2",
+  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.20.2/VBS-1.20.2-instalador.exe",
   "notes": {
-    "ca": "• Clips té un filtre nou pel tipus de saque o d'atac (high, quick, tense...). A la recepció mira el tipus del saque, i al bloqueig i la defensa, el de l'atac.",
-    "es": "• Clips tiene un filtro nuevo por el tipo de saque o de ataque (high, quick, tense...). En la recepción mira el tipo del saque, y en el bloqueo y la defensa, el del ataque.",
-    "en": "• Clips has a new filter for the serve or attack type (high, quick, tense...). On reception it uses the serve type, and on block and dig the attack type.",
-    "de": "• Clips hat einen neuen Filter für die Aufschlag- oder Angriffsart (high, quick, tense...). Bei der Annahme zählt die Art des Aufschlags, bei Block und Abwehr die des Angriffs."
+    "ca": "• Clips té un filtre nou per la direcció del saque i de l'atac: zona d'origen, zona de destí (o con, a l'atac) i subzona.",
+    "es": "• Clips tiene un filtro nuevo por la dirección del saque y del ataque: zona de origen, zona de destino (o cono, en el ataque) y subzona.",
+    "en": "• Clips has a new filter for the serve and attack direction: start zone, end zone (or cone, on attack) and subzone.",
+    "de": "• Clips hat einen neuen Filter für die Richtung von Aufschlag und Angriff: Startzone, Zielzone (beim Angriff Kegel) und Unterzone."
   }
 }
