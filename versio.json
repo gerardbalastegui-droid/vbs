@@ -1,10 +1,10 @@
 {
-  "versio": "1.20",
-  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.20/VBS-1.20-instalador.exe",
+  "versio": "1.20.1",
+  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.20.1/VBS-1.20.1-instalador.exe",
   "notes": {
-    "ca": "• En alguns ordinadors, activar la clau o mirar si hi ha una versió nova deia «No s'ha pogut connectar» encara que hi hagués internet. Ara hi arriba.",
-    "es": "• En algunos ordenadores, activar la clave o buscar una versión nueva decía «No se ha podido conectar» aunque hubiera internet. Ahora llega.",
-    "en": "• On some computers, activating the key or checking for a new version said “Could not connect” even with internet. Now it gets through.",
-    "de": "• Auf manchen Computern meldete das Aktivieren des Schlüssels oder die Suche nach einer neuen Version „Keine Verbindung“, obwohl Internet da war. Jetzt klappt es."
+    "ca": "• Clips té un filtre nou pel tipus de saque o d'atac (high, quick, tense...). A la recepció mira el tipus del saque, i al bloqueig i la defensa, el de l'atac.",
+    "es": "• Clips tiene un filtro nuevo por el tipo de saque o de ataque (high, quick, tense...). En la recepción mira el tipo del saque, y en el bloqueo y la defensa, el del ataque.",
+    "en": "• Clips has a new filter for the serve or attack type (high, quick, tense...). On reception it uses the serve type, and on block and dig the attack type.",
+    "de": "• Clips hat einen neuen Filter für die Aufschlag- oder Angriffsart (high, quick, tense...). Bei der Annahme zählt die Art des Aufschlags, bei Block und Abwehr die des Angriffs."
   }
 }
