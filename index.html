@@ -217,6 +217,21 @@
     font-size: 14px; font-weight: 600;
   }
 
+  /* El cafè (27/10/2026): una targeta pròpia just sota la de baixar, amb un
+     botó gran en taronja perquè no es confongui amb el de baixar (blau). */
+  .cafe {
+    max-width: 680px; margin: 20px auto 0; text-align: center;
+    background: var(--targeta); border-radius: 24px; padding: 30px 32px 32px;
+    box-shadow: var(--ombra);
+  }
+  .cafe p { color: var(--fluix); margin: 0 auto 20px; max-width: 34em; }
+  .boto.cafe-boto {
+    min-height: 56px; padding: 14px 34px; font-size: 18px;
+    background: var(--taronja); border-color: var(--taronja);
+  }
+  .boto.cafe-boto:hover { background: #9a3412; }
+  .boto.cafe-boto svg { width: 22px; height: 22px; }
+
   .installa { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; margin-top: 64px; align-items: start; }
   ol.passos { list-style: none; counter-reset: pas; margin: 18px 0 0; padding: 0; }
   ol.passos li {
@@ -303,6 +318,8 @@
     .accions .boto { width: 100%; }
     .baixa { padding: 32px 18px 26px; border-radius: 20px; }
     .baixa .boto { width: 100%; }
+    .cafe { padding: 26px 18px 24px; border-radius: 20px; }
+    .cafe .boto { width: 100%; }
     .dues > div { padding: 26px 18px; }
     .codi { padding: 12px 14px; }
     .codi-fila { grid-template-columns: auto 1.4em minmax(0, 1fr); column-gap: 4px; }
@@ -435,6 +452,15 @@
         <div><span class="pendent" id="pendent" hidden>versio.json: &lt;usuari&gt; / &lt;repo&gt; (LLEGEIX-ME.md)</span></div>
       </div>
 
+      <div class="cafe" id="support">
+        <h3 data-t="kofi_t"></h3>
+        <p data-t="kofi_d"></p>
+        <a class="boto cafe-boto" id="boto-kofi" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9zm12 1h1.5a2.5 2.5 0 0 1 0 5H16M7 3.5v2.5M10 3v3M13 3.5v2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-t="kofi_btn"></span>
+        </a>
+      </div>
+
       <div class="installa" id="install">
         <div>
           <h2 data-t="inst_t"></h2>
@@ -458,10 +484,6 @@
           <div class="nota">
             <h3 data-t="dades_t"></h3>
             <p data-t="dades_d"></p>
-          </div>
-          <div class="nota" id="support">
-            <h3 data-t="kofi_t"></h3>
-            <p data-t="kofi_d"></p>
           </div>
         </div>
       </div>
@@ -542,8 +564,9 @@
   // ambre, també a GitHub Pages: les Issues són públiques, i una clau no
   // s'hi pot passar.
   var CONTACTE_CLAU = "vbs@voleibolstats.com";
-  // El cafè (24/10/2026): l'enllaç de Ko-fi, a la nota «Si el VBS t'ajuda»
-  // (#support, al costat de com s'instal·la) i al Quant al VBS del programa
+  // El cafè (24/10/2026): l'enllaç de Ko-fi, al botó de la targeta «Si el VBS
+  // t'ajuda» (#support, des del 27/10/2026 just sota la de baixar, que a la
+  // columna de com s'instal·la no la veia ningú) i al Quant al VBS del programa
   // (dades.KOFI). Buit, la nota no surt. Res de publicitat: un enllaç i prou,
   // que la pàgina no carrega res de fora.
   var KOFI = "https://ko-fi.com/gerardbalastegui";
@@ -563,6 +586,7 @@
   var IDIOMES = ["ca", "es", "en", "de"];
   // Sense enllaç de Ko-fi, la nota del cafè no surt.
   document.getElementById("support").hidden = !KOFI;
+  document.getElementById("boto-kofi").href = KOFI || "#";
 
   var ICONES = {
     teclat: '<rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/>',
@@ -657,7 +681,8 @@
       dades_t: "On van les teves dades",
       dades_d: "Els partits, a <code>Documents\\VBS\\Partits</code>; la configuració, els equips i els diaris, a <code>%APPDATA%\\VBS</code>. Quan hi ha una versió nova, la pantalla d'inici ho diu (<b>VERSIÓ NOVA</b>) i <b>Actualitza</b> la baixa, la comprova i la instal·la a sobre: no es perd res. També es pot instal·lar a mà, a sobre. Desinstal·lar tampoc no s'emporta cap dada teva.",
       kofi_t: "Si el VBS t'ajuda",
-      kofi_d: "El VBS és gratis i ho seguirà sent. Si et serveix, pots convidar-me a un cafè a {kofi}. El programa és el mateix per a tothom, amb cafè o sense.",
+      kofi_d: "El VBS és gratis i ho seguirà sent. Si et serveix, pots convidar-me a un cafè. El programa és el mateix per a tothom, amb cafè o sense.",
+      kofi_btn: "Convida'm a un cafè",
       guia_t: "La guia visual",
       guia_d: "Un PDF per idioma amb la pista, la pantalla d'anotar, el codi i els fluxos dibuixats, per llegir-lo abans del primer partit.",
       guia_dins: "La guia completa, amb les teves tecles i les teves jugades, és dins del programa: el botó <b>Guia</b> o la tecla <b>F1</b>.",
@@ -758,7 +783,8 @@
       dades_t: "Dónde van tus datos",
       dades_d: "Los partidos, en <code>Documentos\\VBS\\Partits</code>; la configuración, los equipos y los diarios, en <code>%APPDATA%\\VBS</code>. Cuando hay una versión nueva, la pantalla de inicio lo dice (<b>VERSIÓN NUEVA</b>) y <b>Actualizar</b> la descarga, la comprueba y la instala encima: no se pierde nada. También se puede instalar a mano, encima. Desinstalar tampoco se lleva ningún dato tuyo.",
       kofi_t: "Si el VBS te sirve",
-      kofi_d: "El VBS es gratis y lo seguirá siendo. Si te sirve, puedes invitarme a un café en {kofi}. El programa es el mismo para todos, con café o sin él.",
+      kofi_d: "El VBS es gratis y lo seguirá siendo. Si te sirve, puedes invitarme a un café. El programa es el mismo para todos, con café o sin él.",
+      kofi_btn: "Invítame a un café",
       guia_t: "La guía visual",
       guia_d: "Un PDF por idioma con la pista, la pantalla de anotar, el código y los flujos dibujados, para leerlo antes del primer partido.",
       guia_dins: "La guía completa, con tus teclas y tus jugadas, está dentro del programa: el botón <b>Guía</b> o la tecla <b>F1</b>.",
@@ -859,7 +885,8 @@
       dades_t: "Where your data goes",
       dades_d: "Matches go to <code>Documents\\VBS\\Partits</code>; settings, teams and journals to <code>%APPDATA%\\VBS</code>. When there is a new version, the start screen says so (<b>NEW VERSION</b>) and <b>Update</b> downloads it, checks it and installs it on top: nothing is lost. It can also be installed by hand, on top. Uninstalling does not remove any of your data either.",
       kofi_t: "If VBS helps you",
-      kofi_d: "VBS is free and will stay free. If it is useful to you, you can buy me a coffee at {kofi}. The program is the same for everyone, coffee or not.",
+      kofi_d: "VBS is free and will stay free. If it is useful to you, you can buy me a coffee. The program is the same for everyone, coffee or not.",
+      kofi_btn: "Buy me a coffee",
       guia_t: "The visual guide",
       guia_d: "One PDF per language with the court, the scouting screen, the code and the workflows drawn out, to read before your first match.",
       guia_dins: "The full guide, with your keys and your combinations, is inside the program: the <b>Guide</b> button or the <b>F1</b> key.",
@@ -960,7 +987,8 @@
       dades_t: "Wo deine Daten landen",
       dades_d: "Die Spiele in <code>Dokumente\\VBS\\Partits</code>; Einstellungen, Teams und Journale in <code>%APPDATA%\\VBS</code>. Gibt es eine neue Version, zeigt es der Startbildschirm (<b>NEUE VERSION</b>), und <b>Aktualisieren</b> lädt sie herunter, prüft sie und installiert sie darüber: Es geht nichts verloren. Man kann sie auch von Hand darüber installieren. Auch beim Deinstallieren bleiben alle deine Daten erhalten.",
       kofi_t: "Wenn dir VBS hilft",
-      kofi_d: "VBS ist kostenlos und bleibt es auch. Wenn es dir nützt, kannst du mir auf {kofi} einen Kaffee spendieren. Das Programm ist für alle dasselbe, mit oder ohne Kaffee.",
+      kofi_d: "VBS ist kostenlos und bleibt es auch. Wenn es dir nützt, kannst du mir einen Kaffee spendieren. Das Programm ist für alle dasselbe, mit oder ohne Kaffee.",
+      kofi_btn: "Spendier mir einen Kaffee",
       guia_t: "Die visuelle Anleitung",
       guia_d: "Ein PDF pro Sprache mit Feld, Scouting-Bildschirm, Code und Abläufen als Grafik, zum Lesen vor dem ersten Spiel.",
       guia_dins: "Die vollständige Anleitung, mit deinen Tasten und Kombinationen, ist im Programm: der Button <b>Anleitung</b> oder die Taste <b>F1</b>.",
