@@ -1,10 +1,10 @@
 {
-  "versio": "1.20.2",
-  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.20.2/VBS-1.20.2-instalador.exe",
+  "versio": "1.21",
+  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.21/VBS-1.21-instalador.exe",
   "notes": {
-    "ca": "• Clips té un filtre nou per la direcció del saque i de l'atac: zona d'origen, zona de destí (o con, a l'atac) i subzona.",
-    "es": "• Clips tiene un filtro nuevo por la dirección del saque y del ataque: zona de origen, zona de destino (o cono, en el ataque) y subzona.",
-    "en": "• Clips has a new filter for the serve and attack direction: start zone, end zone (or cone, on attack) and subzone.",
-    "de": "• Clips hat einen neuen Filter für die Richtung von Aufschlag und Angriff: Startzone, Zielzone (beim Angriff Kegel) und Unterzone."
+    "ca": "• Envia, a cada partit recent de la pantalla d'inici, el desa en un sol fitxer per passar-lo a un altre VBS per WhatsApp o pel correu, amb tot el que se n'ha fet a Clips.\n• Qui el rep l'obre amb un doble clic: el partit va a la seva carpeta i a Clips ja és sincronitzat. Si el vídeo era de YouTube, Clips en té l'enllaç.",
+    "es": "• Enviar, en cada partido reciente de la pantalla de inicio, lo guarda en un solo archivo para pasarlo a otro VBS por WhatsApp o por correo, con todo lo hecho en Clips.\n• Quien lo recibe lo abre con un doble clic: el partido va a su carpeta y en Clips ya está sincronizado. Si el vídeo era de YouTube, Clips tiene el enlace.",
+    "en": "• Send, on each recent match on the start screen, saves it in a single file to pass on to another VBS by WhatsApp or email, with everything done with it in Clips.\n• Whoever receives it opens it with a double click: the match goes to their folder and is already synced in Clips. If the video was from YouTube, Clips has the link.",
+    "de": "• Senden, bei jedem der letzten Spiele auf dem Startbildschirm, speichert es in einer Datei, um es per WhatsApp oder E-Mail an ein anderes VBS zu geben, mit allem aus Clips.\n• Wer es bekommt, öffnet es per Doppelklick: Das Spiel kommt in den eigenen Ordner und ist in Clips schon synchronisiert. War das Video von YouTube, hat Clips den Link."
   }
 }
