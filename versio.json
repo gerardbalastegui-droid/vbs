@@ -1,10 +1,10 @@
 {
-  "versio": "1.21",
-  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.21/VBS-1.21-instalador.exe",
+  "versio": "1.21.1",
+  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.21.1/VBS-1.21.1-instalador.exe",
   "notes": {
-    "ca": "• Envia, a cada partit recent de la pantalla d'inici, el desa en un sol fitxer per passar-lo a un altre VBS per WhatsApp o pel correu, amb tot el que se n'ha fet a Clips.\n• Qui el rep l'obre amb un doble clic: el partit va a la seva carpeta i a Clips ja és sincronitzat. Si el vídeo era de YouTube, Clips en té l'enllaç.",
-    "es": "• Enviar, en cada partido reciente de la pantalla de inicio, lo guarda en un solo archivo para pasarlo a otro VBS por WhatsApp o por correo, con todo lo hecho en Clips.\n• Quien lo recibe lo abre con un doble clic: el partido va a su carpeta y en Clips ya está sincronizado. Si el vídeo era de YouTube, Clips tiene el enlace.",
-    "en": "• Send, on each recent match on the start screen, saves it in a single file to pass on to another VBS by WhatsApp or email, with everything done with it in Clips.\n• Whoever receives it opens it with a double click: the match goes to their folder and is already synced in Clips. If the video was from YouTube, Clips has the link.",
-    "de": "• Senden, bei jedem der letzten Spiele auf dem Startbildschirm, speichert es in einer Datei, um es per WhatsApp oder E-Mail an ein anderes VBS zu geben, mit allem aus Clips.\n• Wer es bekommt, öffnet es per Doppelklick: Das Spiel kommt in den eigenen Ordner und ist in Clips schon synchronisiert. War das Video von YouTube, hat Clips den Link."
+    "ca": "• Un partit enviat que arriba com a «.vbsp.zip» (el WhatsApp o el navegador hi afegeixen «.zip») ja s'obre amb «Obre un partit».\n• Si el partit rebut ja s'havia obert abans a Clips, ara també hi arriba la seva sincronització.",
+    "es": "• Un partido enviado que llega como «.vbsp.zip» (WhatsApp o el navegador le añaden «.zip») ya se abre con «Abrir un partido».\n• Si el partido recibido ya se había abierto antes en Clips, ahora también le llega su sincronización.",
+    "en": "• A sent match that arrives as «.vbsp.zip» (WhatsApp or the browser adds «.zip») now opens with «Open a match».\n• If the received match had already been opened in Clips, its sync now comes through too.",
+    "de": "• Ein gesendetes Spiel, das als «.vbsp.zip» ankommt (WhatsApp oder der Browser hängen «.zip» an), öffnet sich jetzt mit «Spiel öffnen».\n• Wurde das empfangene Spiel schon vorher in Clips geöffnet, kommt seine Synchronisierung jetzt trotzdem an."
   }
 }
