@@ -1,10 +1,10 @@
 {
-  "versio": "1.22.3",
-  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.22.3/VBS-1.22.3-instalador.exe",
+  "versio": "1.22.4",
+  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.22.4/VBS-1.22.4-instalador.exe",
   "notes": {
-    "ca": "• El codi especial també a l'atac, darrere de la marca: fallat S fora pel costat, O fons, N xarxa, I toca la xarxa, A antena, Z àrbitre (15a45=A).\n• A l'atac de punt: S i O el bloqueig la treu, F el bloqueig la posa a terra, X directe a terra, N la xarxa. En joc: N la xarxa, C control del bloqueig.\n• Al saque de punt o en joc, N vol dir que ha tocat la xarxa i ha passat.",
-    "es": "• El código especial también en el ataque, detrás de la marca: fallado S fuera por el lado, O fondo, N red, I toca la red, A antena, Z árbitro (15a45=A).\n• En el ataque de punto: S y O el bloqueo la saca, F el bloqueo la pone en el suelo, X directo al suelo, N la red. En juego: N la red, C control del bloqueo.\n• En el saque de punto o en juego, N quiere decir que ha tocado la red y ha pasado.",
-    "en": "• The special code on the attack too, after the grade: error S out on the side, O long, N net, I net touch, A antenna, Z referee (15a45=A).\n• On a winning attack: S and O block out, F the block puts it down, X straight to the floor, N the net. In play: N the net, C block control.\n• On an ace or a serve in play, N means it touched the net and went over.",
-    "de": "• Der Spezialcode auch beim Angriff, hinter der Bewertung: Fehler S seitlich aus, O hinten aus, N Netz, I Netzberührung, A Antenne, Z Schiedsrichter (15a45=A).\n• Beim Angriffspunkt: S und O Block aus, F der Block legt ihn ab, X direkt auf den Boden, N Netzkante. Im Spiel: N Netzkante, C Blockkontrolle.\n• Beim Ass oder Aufschlag im Spiel heißt N, dass er die Netzkante berührt hat."
+    "ca": "• A Només un gest, al saque i a l'atac amb la direcció, una pista petita al costat del codi mostra la direcció abans d'entrar-la: la zona d'origen i la fletxa fins al destí o el con.\n• La mateixa fletxa surt en blau al mapa de direccions.",
+    "es": "• En Solo un gesto, en el saque y el ataque con la dirección, una pista pequeña al lado del código enseña la dirección antes de entrarla: la zona de origen y la flecha hasta el destino o el cono.\n• La misma flecha sale en azul en el mapa de direcciones.",
+    "en": "• In One skill only, on the serve and the attack with direction, a small court next to the code shows the direction before you enter it: the start zone and the arrow to the end zone or the cone.\n• The same arrow shows in blue on the map of directions.",
+    "de": "• In Nur ein Spielelement zeigt beim Aufschlag und Angriff mit Richtung ein kleines Feld neben dem Code die Richtung vor der Eingabe: die Startzone und den Pfeil bis zur Zielzone oder zum Kegel.\n• Derselbe Pfeil erscheint blau in der Karte der Richtungen."
   }
 }
