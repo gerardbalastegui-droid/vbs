@@ -1,10 +1,10 @@
 {
-  "versio": "1.22.4",
-  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.22.4/VBS-1.22.4-instalador.exe",
+  "versio": "1.22.5",
+  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.22.5/VBS-1.22.5-instalador.exe",
   "notes": {
-    "ca": "• A Només un gest, al saque i a l'atac amb la direcció, una pista petita al costat del codi mostra la direcció abans d'entrar-la: la zona d'origen i la fletxa fins al destí o el con.\n• La mateixa fletxa surt en blau al mapa de direccions.",
-    "es": "• En Solo un gesto, en el saque y el ataque con la dirección, una pista pequeña al lado del código enseña la dirección antes de entrarla: la zona de origen y la flecha hasta el destino o el cono.\n• La misma flecha sale en azul en el mapa de direcciones.",
-    "en": "• In One skill only, on the serve and the attack with direction, a small court next to the code shows the direction before you enter it: the start zone and the arrow to the end zone or the cone.\n• The same arrow shows in blue on the map of directions.",
-    "de": "• In Nur ein Spielelement zeigt beim Aufschlag und Angriff mit Richtung ein kleines Feld neben dem Code die Richtung vor der Eingabe: die Startzone und den Pfeil bis zur Zielzone oder zum Kegel.\n• Derselbe Pfeil erscheint blau in der Karte der Richtungen."
+    "ca": "• Al muntatge de Clips, cada clip de la llista del que quedaria porta una × per treure'l, i «Torna-les» els recupera. Al recopilatori s'hi afegeix sense els tretos.\n• Els recopilatoris llargs ja no deixen l'ordinador sense respondre mentre es tallen, i la barra de progrés no es queda aturada.",
+    "es": "• En el montaje de Clips, cada clip de la lista de lo que quedaría lleva una × para quitarlo, y «Volver a ponerlas» los recupera. A la recopilación se añade sin los quitados.\n• Las recopilaciones largas ya no dejan el ordenador sin responder mientras se cortan, y la barra de progreso no se queda parada.",
+    "en": "• In the Clips montage, each clip in the preview list has a × to remove it, and «Put them back» restores them. The compilation gets it without the removed ones.\n• Long compilations no longer leave the computer unresponsive while they are cut, and the progress bar no longer gets stuck.",
+    "de": "• Im Schnitt von Clips hat jeder Clip in der Vorschauliste ein ×, um ihn zu entfernen, und «Wieder hinzufügen» holt sie zurück. Der Zusammenschnitt bekommt ihn ohne die entfernten.\n• Lange Zusammenschnitte lassen den Computer beim Schneiden nicht mehr hängen, und der Fortschrittsbalken bleibt nicht mehr stehen."
   }
 }
