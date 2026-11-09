@@ -1,10 +1,10 @@
 {
-  "versio": "1.22.8",
-  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.22.8/VBS-1.22.8-instalador.exe",
+  "versio": "1.22.9",
+  "instalador": "https://github.com/gerardbalastegui-droid/vbs/releases/download/v1.22.9/VBS-1.22.9-instalador.exe",
   "notes": {
-    "ca": "• A Clips, si aquest ordinador no es fia del certificat de la pàgina d'on es baixen les eines de vídeo (passa amb alguns antivirus), ara es baixen amb el de Windows, com el navegador.\n• Quan Quant al VBS no pot mirar si n'hi ha una de nova, el motiu de debò queda apuntat a la carpeta dels errors (el seu botó), per poder dir per què.",
-    "es": "• En Clips, si este ordenador no se fía del certificado de la web de donde se descargan las herramientas de vídeo (pasa con algunos antivirus), ahora se descargan con el de Windows, como el navegador.\n• Cuando Acerca del VBS no puede mirar si hay una nueva, el motivo real queda apuntado en la carpeta de los errores (su botón), para poder decir por qué.",
-    "en": "• In Clips, if this computer does not trust the certificate of the site the video tools come from (some antivirus programs cause this), they are now downloaded with Windows' own, like the browser.\n• When About VBS cannot check for a new version, the real reason is noted in the errors folder (its button), so it can be told why.",
-    "de": "• Wenn dieser Computer in Clips dem Zertifikat der Seite mit den Video-Werkzeugen nicht vertraut (passiert mit manchen Virenscannern), werden sie jetzt über Windows geladen, wie im Browser.\n• Wenn Über VBS nicht nach einer neuen Version suchen kann, wird der echte Grund im Fehlerordner notiert (sein Knopf), damit man sagen kann, warum."
+    "ca": "• Amb el vídeo dins de la finestra del VBS, l'avís «Torna al VBS per anotar» ja no es queda a sobre del vídeo després d'haver-hi clicat.",
+    "es": "• Con el vídeo dentro de la ventana del VBS, el aviso «Vuelve al VBS para anotar» ya no se queda encima del vídeo después de haber hecho clic en él.",
+    "en": "• With the video inside the VBS window, the «Go back to VBS to scout» notice no longer stays on top of the video after clicking it.",
+    "de": "• Mit dem Video im VBS-Fenster bleibt der Hinweis «Zurück zum VBS, um zu scouten» nicht mehr über dem Video, nachdem man darauf geklickt hat."
   }
 }
